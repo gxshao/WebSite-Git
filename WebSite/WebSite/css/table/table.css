@@ -1,0 +1,44 @@
+﻿body {
+}
+
+.table {
+    table-layout: fixed;
+    empty-cells: show;
+    border-collapse: collapse;
+    border-right: 1px solid white;
+    border-bottom: 1px solid white;
+    overflow-y: scroll;
+    position: absolute;
+    z-index: 50;
+}
+
+    .table tr {
+        background-color: #7EC0EE;
+    }
+
+        .table tr:hover {
+            background-color: #87CEFA;
+        }
+
+        .table tr td {
+            font-size: 25px;
+            text-align: center;
+            border-top: 1px solid white;
+            border-left: 1px solid white;
+            font-family: 'Adobe Heiti Std';
+            height: 50px;
+            white-space: nowrap;
+            text-wrap: none;
+            max-height: 50px;
+            cursor: pointer;
+            color: white;
+        }
+
+        .table tr th {
+            background-color: #336699;
+            font-weight: bold;
+            color: white;
+            font-size: 20px;
+            width: 1000px;
+            font-family: 'Adobe Heiti Std';
+        }

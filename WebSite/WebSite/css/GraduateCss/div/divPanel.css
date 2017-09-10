@@ -1,0 +1,94 @@
+﻿body {
+    overflow:scroll;
+   background-color: #FFF8DC;
+}
+.divLeftPanel {
+    border:2px solid black;
+    background:#303030;
+    width:18%;
+    border-radius:3px 3px; 
+    margin-left:-8px;
+    margin-top:0px;
+    float:left;
+    min-width:280px;
+    max-height:950px;
+    min-height:950px;
+    height:950px;
+}
+.diviFrame {
+    border:none;
+    width:82%;
+    border:0px none none;
+    height:960px;
+    max-height:960px;
+    position:absolute;
+    background-color:transparent;
+    min-height:900px;
+    height:950px;
+}
+.divRightPanel{
+    margin-left:18%;
+    margin-top:1px;
+    width:82%;
+    height:95%;
+    max-height:930px;
+     min-height:900px;
+    height:930px;
+     
+}
+.LeftPanel-Top {
+    height:30px;
+    margin-left:20px;
+    margin-top:20px;
+     
+}
+.LeftPanel-Bottom {
+    color:white;
+    margin-left:-20px ;
+    margin-top:20px;
+    width:100%;
+    height:87%; 
+    max-height:920px;
+    overflow-y:scroll;
+}
+.div-HideScrollBar{
+    height:91%;
+      max-height:960px;
+    min-height:960px;
+   margin-left:16.5%;
+   z-index:9999;
+    width:29px;
+    background-color:#303030;
+    max-width:29px;
+}
+.smalldir{
+    color:deepskyblue;
+    font-family:'Times New Roman', Times, serif;
+    font-size:25px;
+    width:90%;
+    margin-left:40%;
+    margin-top:10px;
+    text-align:center;
+}
+/* detial页面*/
+.navgator {
+    background-color:#303030;
+    height:50px;
+    width:100%;
+    margin-bottom:2px;
+    margin-top:-8px;
+    float:left;
+    z-index:999;
+    position:fixed;
+    vertical-align:middle;
+    margin-left:-8px;
+}
+.BoldLine {
+    height:60%;
+    float:left;
+    margin-top:10px;
+    width:8px;
+    margin-left:3%;
+    background-color:deepskyblue;   
+
+}

@@ -1,0 +1,9 @@
+E:\WorkingSpcae VS\WorkingSpace Web\WebSite\WebSite\WebSite\bin\WebSite.dll.config
+E:\WorkingSpcae VS\WorkingSpace Web\WebSite\WebSite\WebSite\bin\WebSite.dll
+E:\WorkingSpcae VS\WorkingSpace Web\WebSite\WebSite\WebSite\bin\WebSite.pdb
+E:\WorkingSpcae VS\WorkingSpace Web\WebSite\WebSite\WebSite\bin\Microsoft.Web.Infrastructure.dll
+E:\WorkingSpcae VS\WorkingSpace Web\WebSite\WebSite\WebSite\bin\Newtonsoft.Json.dll
+E:\WorkingSpcae VS\WorkingSpace Web\WebSite\WebSite\WebSite\bin\Newtonsoft.Json.xml
+E:\WorkingSpcae VS\WorkingSpace Web\WebSite\WebSite\WebSite\obj\Debug\WebSite.dll
+E:\WorkingSpcae VS\WorkingSpace Web\WebSite\WebSite\WebSite\obj\Debug\WebSite.pdb
+E:\WorkingSpcae VS\WorkingSpace Web\WebSite\WebSite\WebSite\obj\Debug\WebSite.csprojResolveAssemblyReference.cache

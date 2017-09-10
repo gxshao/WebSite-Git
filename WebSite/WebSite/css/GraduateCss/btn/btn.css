@@ -1,0 +1,97 @@
+﻿body {
+}
+.btn-Search {
+    font-family:'Microsoft YaHei UI';
+    font-size: 17px;
+    width: 80px;
+    color: white;
+    border: 1px solid deepskyblue;
+    background-color: deepskyblue;
+    filter: alpha(30);
+    cursor: pointer;
+    border-radius:5px;
+    height:34px;
+    line-height:32px;
+    margin-left:20px;
+    outline:none;
+    text-decoration:none;
+}
+
+    .btn-Search:hover{
+        outline: none;
+        color: white;
+        background-color: deepskyblue;
+        box-shadow: 0px 0px 5px deepskyblue;
+    }
+    .btn-Search:focus{
+        outline: none; 
+    }
+    .btn-Search:active {
+        transform: scale(0.95);
+    }
+.btn-areaname {
+    color: white;
+    width: 80%;
+    text-align: center;
+    font-family: 'Adobe Heiti Std';
+    border: 1px solid white;
+    border-radius: 5px 5px;
+    text-decoration: none;
+    cursor: pointer;
+    opacity: 0.8;
+    display: block;
+    font-size: 20px;
+    margin-top: 10px;
+    margin-left: 40px;
+    float: left;
+    background-color: transparent;
+}
+
+    .btn-areaname:hover {
+        outline: none;
+        color: white;
+        background-color: deepskyblue;
+        box-shadow: 0px 0px 5px deepskyblue;
+    }
+
+    .btn-areaname:active {
+        transform: scale(0.95);
+    }
+
+.btn-detial {
+    font-family: 'Adobe Heiti Std';
+    font-size: 18px;
+    outline: none;
+    width: 120px;
+    height: 35px;
+    background-color: #4F94CD;
+    color: white;
+    border-radius: 4px 4px;
+    border: 0px solid #4F94CD;
+    box-shadow: 0px 5px 0px #4876FF;
+    padding-top:-20px;
+}
+
+    .btn-detial:hover {
+        outline: none;
+        opacity: 0.7;
+        border: 0px solid deepskyblue;
+    }
+
+    .btn-detial:active {
+        animation:push 0.15s forwards;
+        outline: none;      
+        box-shadow: 0px 0px 0px #4876FF;
+        color:#36648B;
+        text-shadow:1px 1px 1px white;
+    }
+@keyframes push {
+    0% {
+        box-shadow: 0px 5px 0px #4876FF;
+        margin-top:0px;
+    }
+    100% {
+        box-shadow: 0px 0px 0px #4876FF;
+          margin-top: 10px;
+    }
+}
