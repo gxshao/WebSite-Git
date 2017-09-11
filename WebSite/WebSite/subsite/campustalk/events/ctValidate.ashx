@@ -80,7 +80,8 @@ public class ctValidate : IHttpHandler
                         { //密码是否正确
                             person.Uid = dt_res.Rows[0][GlobalVar.User.UID].ToString();
                             person.Age = dt_res.Rows[0][GlobalVar.User.AGE].ToString();
-                            person.School.SCode = dt_res.Rows[0][GlobalVar.User.SCHOOLCODE].ToString();
+                            person.School = new CTSchool();
+                            person.School.SCode=dt_res.Rows[0][GlobalVar.User.SCHOOLCODE].ToString();
                             DataTable dt = ctSqlHelper.getInstance().Query("select " + GlobalVar.SchoolInfo.SCHOOLNAME + " from " + GlobalVar.SchoolInfo.TABLE_SCHOOLINFO + " where " + GlobalVar.SchoolInfo.SCHOOLCODE + "='" + person.School.SCode + "'");
                             if (dt.Rows.Count > 0)
                             {

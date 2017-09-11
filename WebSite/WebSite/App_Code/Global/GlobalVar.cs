@@ -27,7 +27,7 @@ public class GlobalVar
     /// </summary>
     public class User
     {
-        public const string TABLE_USER = "user";
+        public const string TABLE_USER = "users";
         public const string UID = "uid";
         public const string EMAIL = "email";
         public const string NICKNAME = "nickname";
