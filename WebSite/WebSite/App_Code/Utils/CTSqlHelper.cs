@@ -11,12 +11,11 @@ using System.Web;
 public class ctSqlHelper
 {
     SqlConnection sc;
-    string conn = System.Web.Configuration.WebConfigurationManager.ConnectionStrings["ConnString"].ToString();
+    string conn = System.Web.Configuration.WebConfigurationManager.ConnectionStrings["ConnCampusTalk"].ToString();
     static ctSqlHelper mHelper = null;
     public ctSqlHelper()
     {
         sc = new SqlConnection(conn);
-        sc.Open();
     }
     public static ctSqlHelper getInstance()
     {
@@ -34,8 +33,8 @@ public class ctSqlHelper
         {
             try
             {
+                sc.Open();
                 tran = sc.BeginTransaction();
-
                 sqlcmd = new SqlCommand(sql, sc);
                 sqlcmd.Transaction = tran;
                 sqlcmd.ExecuteNonQuery();
@@ -63,6 +62,7 @@ public class ctSqlHelper
         {
             try
             {
+                sc.Open();
                 tran = sc.BeginTransaction();
                 sqlcmd = new SqlCommand(sql, sc);
                 sqlcmd.Transaction = tran;
