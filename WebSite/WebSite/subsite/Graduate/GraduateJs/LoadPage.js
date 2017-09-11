@@ -10,7 +10,7 @@
     var text = "key=GetSchoolInfo&value=" + code;
     $.ajax({
         type: "POST",
-        url: "../Graduate/GraduateInfo.ashx", data: text, success: function (data) {
+        url: "../GraduateInfo.ashx", data: text, success: function (data) {
             if (data == null)
                 return;
             var schools = JSON.parse(data);

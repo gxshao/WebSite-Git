@@ -152,7 +152,7 @@
             </div>
 
 
-            <div id="link_layer" class="div-linklayer"><a href="../Graduate/Main.aspx" style="text-decoration:none;">进入研究生考试信息通道>></a></br>
+            <div id="link_layer" class="div-linklayer"><a href="../subsite/Graduate/Main.aspx" style="text-decoration:none;">进入研究生考试信息通道>></a></br>
 
                 <hr style="width:70%" />
                 <h4>温馨提示:</h4><a>本系统提供2015年部分院校的成绩查询</a></br>

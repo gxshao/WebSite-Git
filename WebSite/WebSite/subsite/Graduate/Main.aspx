@@ -6,14 +6,14 @@
 <head runat="server">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>全国研究生招生院校总览</title>
-    <script src="../js/jquery-3.1.0.min.js"></script>
+    <script src="../Graduate/GraduateJs/jquery-3.1.0.min.js"></script>
     <!-- jsfile-->
-    <script src="../js/GraduateJs/DomControl.js"></script>
+    <script src="../Graduate/GraduateJs/DomControl.js"></script>
     <!-- cssfile-->
-    <link href="../css/GraduateCss/div/divPanel.css" rel="stylesheet" />
-    <link href="../css/txt/Txt.css" rel="stylesheet" />
-    <link href="../css/GraduateCss/btn/btn.css" rel="stylesheet" />
-    <link href="../css/btn/btn.css" rel="stylesheet" />
+    <link href="../Graduate/GraduateCss/div/divPanel.css" rel="stylesheet" />
+    <link href="http://www.mrsgx.cn/css/txt/txt.css" rel="stylesheet" />
+    <link href="../Graduate/GraduateCss/btn/btn.css" rel="stylesheet" />
+    <link href="http://www.mrsgx.cn/css/btn/btn.css" rel="stylesheet" />
 </head>
 <body>
     <form id="form1" runat="server">
@@ -30,6 +30,6 @@
             <iframe src="../Graduate/SchoolList.aspx" name="SubPage" class="diviFrame"></iframe>
         </div>
     </form>
-    <script src="../js/GraduateJs/BehindJS.js"></script>
+    <script src="../Graduate/GraduateJs/BehindJS.js"></script>
 </body>
 </html>

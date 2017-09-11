@@ -6,12 +6,15 @@
 <head runat="server">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title></title>
-    <script src="../js/jquery-3.1.0.min.js"></script>
-    <script src="../js/GraduateJs/details.js"></script>
-    <link href="../css/table/table.css" rel="stylesheet" />
-    <link href="../css/GraduateCss/div/divPanel.css" rel="stylesheet" />
-    <link href="../css/GraduateCss/txt/Txt.css" rel="stylesheet" />
-    <link href="../css/GraduateCss/btn/btn.css" rel="stylesheet" />
+
+
+    <script src="GraduateJs/jquery-3.1.0.min.js"></script>
+    <script src="GraduateJs/details.js"></script>
+    <link href="GraduateCss/div/table.css" rel="stylesheet" />
+    <link href="GraduateCss/div/divPanel.css" rel="stylesheet" />
+    <link href="GraduateCss/txt/Txt.css" rel="stylesheet" />
+    <link href="GraduateCss/btn/btn.css" rel="stylesheet" />
+  
 </head>
 <body>
     <form id="form1" runat="server">
