@@ -54,7 +54,7 @@ public class ctSqlHelper
         return false;
     }
     #region 查询
-    private DataTable Query(string sql)
+    public DataTable Query(string sql)
     {
         SqlTransaction tran = null;
         SqlCommand sqlcmd = null;
