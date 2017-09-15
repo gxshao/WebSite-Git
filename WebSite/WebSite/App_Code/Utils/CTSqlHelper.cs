@@ -43,7 +43,9 @@ public class ctSqlHelper
             }
             catch (SqlException e)
             {
-                tran.Rollback();
+                if (tran != null)
+                    tran.Rollback();
+
                 sc.Close();
                 return false;
             }
@@ -73,9 +75,10 @@ public class ctSqlHelper
             }
             catch (SqlException e)
             {
-                tran.Rollback();
+                if (tran != null)
+                    tran.Rollback();
                 sc.Close();
-              
+
             }
             sc.Close();
         }
