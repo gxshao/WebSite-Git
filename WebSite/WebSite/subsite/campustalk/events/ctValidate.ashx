@@ -29,8 +29,8 @@ public class ctValidate : IHttpHandler
         //1.获取邮箱验证码 done
         //2.注册信息校验
         //3.登录信息校验
-        //4.忘记密码
-        //5.修改密码
+        //4.忘记密码  //独立页面处理
+        //5.修改密码  //独立页面处理
         //6.已存在用户校验
         /**********************************************************/
 
@@ -74,7 +74,7 @@ public class ctValidate : IHttpHandler
                         if (tmp_user != null)
                         {
                             string uid = Guid.NewGuid().ToString();
-                            uid += tmp_user.Sex.Equals("0") ? GlobalVar.SEX_MALE : GlobalVar.SEX_FEMALE;
+                            uid += tmp_user.Sex;
                             tmp_user.Uid = uid;
                             if (SQLOP.getInstance().AddUser(tmp_user) > 0)
                             {

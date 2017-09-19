@@ -40,5 +40,14 @@ public class ctUtils
 
         return Encoding.UTF8.GetString(buffer);
     }
+    /// <summary>
+    /// 
+    /// 文件上传
+    /// </summary>
+    public static void uploadfile()
+    {
+
+
+    }
 
 }

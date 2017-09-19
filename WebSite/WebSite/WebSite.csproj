@@ -278,6 +278,9 @@
   <ItemGroup>
     <Folder Include="file\" />
     <Folder Include="obj\Debug\TempPE\" />
+    <Folder Include="subsite\CampusTalk\images\headpic\" />
+    <Folder Include="subsite\CampusTalk\images\res\" />
+    <Folder Include="subsite\CampusTalk\images\stucard\" />
     <Folder Include="subsite\CampusTalk\js\" />
     <Folder Include="WebSite\WebSite\" />
   </ItemGroup>

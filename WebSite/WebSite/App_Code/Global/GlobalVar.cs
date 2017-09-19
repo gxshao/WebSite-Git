@@ -67,6 +67,7 @@ public class GlobalVar
         public const string TABLE_FOLLOW = "follow";
         public const string UID = "uid";
         public const string FOLLOW = "follow";
+        public const string TIME = "time";
     }
     /// <summary>
     ///个人资产表
