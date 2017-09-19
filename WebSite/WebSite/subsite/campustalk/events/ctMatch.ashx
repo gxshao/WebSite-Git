@@ -25,6 +25,10 @@ public class ctMatch : IHttpHandler
     {
         string uid = Content.Request["uid"];
         string schoolcode =Content.Request["schoolcode"];
+        if (uid==null||schoolcode==null) {
+            //返回wrong
+            return;
+        }
         switch (key)
         {
             case "match":

@@ -35,14 +35,14 @@ public class ctCommon : IHttpHandler
     /// </summary>
     private void HandleKeyEvents(string key)
     {
-        string uid = Content.Request.QueryString["uid"].ToString();
+        string uid = Content.Request.QueryString["uid"];
         switch (key)
         {
             case "getUserProfile":
                 {
                     CTData<CTPerson> res_user = new CTData<CTPerson>();
                     res_user.DataType = CTData<CTPerson>.DATATYPE_REPLY;
-                    if (uid.Equals(""))
+                    if (uid==null)
                     {
                         Content.Response.Write(JsonConvert.SerializeObject(res_user));
                         break;
@@ -55,7 +55,7 @@ public class ctCommon : IHttpHandler
                 CTData<ArrayList> res_list = new CTData<ArrayList>();
                 res_list.DataType = CTData<ArrayList>.DATATYPE_REPLY;
 
-                if (uid.Equals(""))
+                if (uid==null)
                 {
                     Content.Response.Write(JsonConvert.SerializeObject(res_list));
                     break;
@@ -67,9 +67,9 @@ public class ctCommon : IHttpHandler
                 CTData<bool> res_follow = new CTData<bool>();
                 res_follow.Body = GlobalVar.FAIL;
                 res_follow.DataType = CTData<bool>.DATATYPE_REPLY;
-                string tid = Content.Request.QueryString["tid"].ToString();
-                string op = Content.Request.QueryString["op"].ToString(); // 1=关注 0=取消
-                if (uid.Equals("") || tid.Equals("") || op.Equals(""))
+                string tid = Content.Request.QueryString["tid"];
+                string op = Content.Request.QueryString["op"]; // 1=关注 0=取消
+                if (uid==null || tid==null || op==null)
                 {
                     Content.Response.Write(JsonConvert.SerializeObject(res_follow));
                     break;
@@ -89,7 +89,7 @@ public class ctCommon : IHttpHandler
                 CTData<bool> res_sign = new CTData<bool>();
                 res_sign.Body = GlobalVar.FAIL;
                 res_sign.DataType = CTData<bool>.DATATYPE_REPLY;
-                if (uid.Equals(""))
+                if (uid==null)
                 {
                     Content.Response.Write(JsonConvert.SerializeObject(res_sign));
                     break;
@@ -101,8 +101,8 @@ public class ctCommon : IHttpHandler
                 CTData<bool> res_pro = new CTData<bool>();
                 res_pro.Body = GlobalVar.FAIL;
                 res_pro.DataType = CTData<bool>.DATATYPE_REPLY;
-                string json_user = Content.Request.QueryString["user"].ToString();
-                if (json_user.Equals(""))
+                string json_user = Content.Request.QueryString["user"];
+                if (json_user==null)
                 {
                     Content.Response.Write(JsonConvert.SerializeObject(res_pro));
                     break;
@@ -115,7 +115,7 @@ public class ctCommon : IHttpHandler
                 CTData<string> res_headpic = new CTData<string>();
                 res_headpic.DataType = CTData<string>.DATATYPE_REPLY;
                 res_headpic.Body = "";
-                if (uid.Equals(""))
+                if (uid==null)
                 {
                     Content.Response.Write(JsonConvert.SerializeObject(res_headpic));
                     break;
@@ -145,7 +145,7 @@ public class ctCommon : IHttpHandler
                 CTData<bool> res_stucard = new CTData<bool>();
                 res_stucard.DataType = CTData<string>.DATATYPE_REPLY;
                 res_stucard.Body = GlobalVar.FAIL;
-                if (uid.Equals(""))
+                if (uid==null)
                 {
                     Content.Response.Write(JsonConvert.SerializeObject(res_stucard));
                     break;
@@ -165,7 +165,7 @@ public class ctCommon : IHttpHandler
                         string picname = Guid.NewGuid().ToString();
                         string url = HttpContext.Current.Server.MapPath("~/subsite/CampusTalk/images/stucard/" + picname + suffix);
                         upload.SaveAs(url);//保存图片
-                       res_stucard.Body = SQLOP.getInstance().updateHeadpic( "/subsite/CampusTalk/images/stucard/" + picname + suffix, uid)>0;
+                        res_stucard.Body = SQLOP.getInstance().updateHeadpic( "/subsite/CampusTalk/images/stucard/" + picname + suffix, uid)>0;
                     }
                     Content.Response.Write(JsonConvert.SerializeObject(res_stucard));
                 }

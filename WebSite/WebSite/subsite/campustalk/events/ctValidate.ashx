@@ -20,7 +20,7 @@ public class ctValidate : IHttpHandler
         key = Content.Request["key"];
         if (key == null || key.Equals(""))
         {
-            context.Response.Write("非法访问已记录,时间:" + DateTime.Now.ToString()+"   ip:"+context.Request.UserHostAddress);
+            context.Response.Write("非法访问已记录,时间:" + DateTime.Now.ToString() + "   ip:" + context.Request.UserHostAddress);
             return;
         }
         ServerPath = Content.Server.MapPath("/");
@@ -44,8 +44,13 @@ public class ctValidate : IHttpHandler
             case "sendcode":
                 CTData<bool> ans = new CTData<bool>();
                 ans.DataType = CTData<String>.DATATYPE_REPLY;
-                emailAddress = Content.Request.QueryString["email"].ToString();
-
+                ans.Body = GlobalVar.FAIL;
+                emailAddress = Content.Request.QueryString["email"];
+                if (emailAddress == null)
+                {
+                    Content.Response.Write(JsonConvert.SerializeObject(ans));
+                    break;
+                }
                 if (ctEMail.getInstance().sendMail(emailAddress, TempCode.getInstance().getRandomCode()))
                 {
                     ans.Body = GlobalVar.SUCCESS;
@@ -63,11 +68,15 @@ public class ctValidate : IHttpHandler
                 CTData<CTPerson> res_user = new CTData<CTPerson>();
                 res_user.DataType = CTData<CTUser>.DATATYPE_REPLY;
                 res_user.Body = new CTPerson();
-                string code = Content.Request.QueryString["code"].ToString();
+                string code = Content.Request.QueryString["code"];
+                string json_user = Content.Request.QueryString["user"];
+                if (code == null || json_user == null)
+                {
+                    Content.Response.Write(JsonConvert.SerializeObject(res_user));
+                    break;
+                }
                 if (TempCode.getInstance().ValidateCode(code))
                 {
-
-                    string json_user = Content.Request.QueryString["user"].ToString();
                     try
                     {
                         CTPerson tmp_user = JsonConvert.DeserializeObject<CTPerson>(json_user);
@@ -95,9 +104,9 @@ public class ctValidate : IHttpHandler
                     break;
                 CTData<CTPerson> logdata = new CTData<CTPerson>();
                 logdata.DataType = CTData<CTPerson>.DATATYPE_REPLY;
-                emailAddress = Content.Request.QueryString["email"].ToString();
-                string pass = Content.Request.QueryString["pass"].ToString();
-                if (emailAddress.Equals("") || pass.Equals(""))
+                emailAddress = Content.Request.QueryString["email"];
+                string pass = Content.Request.QueryString["pass"];
+                if (emailAddress == null || pass == null)
                 {
                     logdata.Body = new CTPerson();
                 }
@@ -137,8 +146,12 @@ public class ctValidate : IHttpHandler
             case "checkemail":
                 CTData<bool> res_ckemail = new CTData<bool>();
                 res_ckemail.DataType = CTData<String>.DATATYPE_REPLY;
-                emailAddress = Content.Request.QueryString["email"].ToString();
-
+                emailAddress = Content.Request.QueryString["email"];
+                if (emailAddress == null)
+                {
+                    Content.Response.Write(JsonConvert.SerializeObject(res_ckemail));
+                    break;
+                }
                 if (SQLOP.getInstance().CheckEmailValidate(emailAddress))
                 {
                     res_ckemail.Body = GlobalVar.SUCCESS;

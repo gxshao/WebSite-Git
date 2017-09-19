@@ -23,12 +23,17 @@ public class ctGpsInfo : IHttpHandler
             context.Response.Write("非法访问已记录,时间:" + DateTime.Now.ToString());
             return;
         }
-        //locationinfo
-        string json_location = context.Request.QueryString["gps"].ToString();
-        ArrayList list = JsonConvert.DeserializeObject<ArrayList>(json_location);
         CTData<bool> res_gps = new CTData<bool>();
         res_gps.DataType = CTData<bool>.DATATYPE_REPLY;
-        res_gps.Body = SQLOP.getInstance().AddGpsInfo(list)>0;
+        string json_location = context.Request.QueryString["gps"];
+        if (json_location!=null)
+        {
+            context.Response.Write(JsonConvert.SerializeObject(res_gps));
+            return;
+        }
+        ArrayList list = JsonConvert.DeserializeObject<ArrayList>(json_location);
+
+        res_gps.Body = SQLOP.getInstance().AddGpsInfo(list) > 0;
         context.Response.Write(JsonConvert.SerializeObject(res_gps));
     }
 
