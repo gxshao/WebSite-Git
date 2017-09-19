@@ -30,7 +30,7 @@ public class TempCode
             foreach (DictionaryEntry de in mHt)
             {
                 TimeSpan ts = now - (DateTime)de.Value;
-                if (ts.TotalMinutes > 3)
+                if (ts.TotalMinutes > GlobalVar.CODE_VAL_TIME)
                 {
                     keys.Add((string)de.Key);
                 }
@@ -44,7 +44,7 @@ public class TempCode
             }
             keys.Clear();
             keys = null;
-            Thread.Sleep(6000);
+            Thread.Sleep(10000);
           }
     }
     //获取单例模式

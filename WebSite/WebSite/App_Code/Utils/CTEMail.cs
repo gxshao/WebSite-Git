@@ -35,7 +35,7 @@ public class ctEMail
         }
         return mCtEmail;
     }
-    public bool senMail(string emailaddress,string code)
+    public bool sendMail(string emailaddress,string code)
     {
 
         SingleSendMailRequest request = new SingleSendMailRequest();
@@ -48,7 +48,7 @@ public class ctEMail
             request.ReplyToAddress = true;
             request.ToAddress = emailaddress;
             request.Subject = "[campustalk]验证码消息";
-            request.HtmlBody = "欢迎注册campustalk，您的验证码为:"+code;
+            request.HtmlBody = "欢迎注册campustalk，您的验证码为:"+code+"。验证码有效期为："+ GlobalVar.CODE_VAL_TIME+"分钟";
             SingleSendMailResponse httpResponse = client.GetAcsResponse(request);
         }
         catch (ServerException e)

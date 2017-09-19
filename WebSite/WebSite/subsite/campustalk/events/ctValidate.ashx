@@ -5,6 +5,7 @@ using System.Web;
 using System.Data;
 using WebSite.App_Code.Obj.CampusTalk;
 using Newtonsoft.Json;
+using WebSite.App_Code.Utils;
 
 public class ctValidate : IHttpHandler
 {
@@ -19,7 +20,7 @@ public class ctValidate : IHttpHandler
         key = Content.Request["key"];
         if (key == null || key.Equals(""))
         {
-            context.Response.Write("非法访问已记录,时间:" + DateTime.Now.ToString());
+            context.Response.Write("非法访问已记录,时间:" + DateTime.Now.ToString()+"   ip:"+context.Request.UserHostAddress);
             return;
         }
         ServerPath = Content.Server.MapPath("/");
@@ -41,24 +42,57 @@ public class ctValidate : IHttpHandler
         switch (key)
         {
             case "sendcode":
-                CTData<String> ans = new CTData<String>();
+                CTData<bool> ans = new CTData<bool>();
                 ans.DataType = CTData<String>.DATATYPE_REPLY;
                 emailAddress = Content.Request.QueryString["email"].ToString();
 
-                if (ctEMail.getInstance().senMail(emailAddress, TempCode.getInstance().getRandomCode()))
+                if (ctEMail.getInstance().sendMail(emailAddress, TempCode.getInstance().getRandomCode()))
                 {
                     ans.Body = GlobalVar.SUCCESS;
                 }
                 else
                 {
-                    ans.Body = GlobalVar.Fail;
+                    ans.Body = GlobalVar.FAIL;
                 }
 
                 Content.Response.Write(JsonConvert.SerializeObject(ans));
                 break;
-            case "regesiter": break;
+            case "regesiter":
+                if (Content.Request.HttpMethod != "POST")
+                    break;
+                CTData<CTPerson> res_user = new CTData<CTPerson>();
+                res_user.DataType = CTData<CTUser>.DATATYPE_REPLY;
+                res_user.Body = new CTPerson();
+                string code = Content.Request.QueryString["code"].ToString();
+                if (TempCode.getInstance().ValidateCode(code))
+                {
+
+                    string json_user = Content.Request.QueryString["user"].ToString();
+                    try
+                    {
+                        CTPerson tmp_user = JsonConvert.DeserializeObject<CTPerson>(json_user);
+                        if (tmp_user != null)
+                        {
+                            string uid = Guid.NewGuid().ToString();
+                            uid += tmp_user.Sex.Equals("0") ? GlobalVar.SEX_MALE : GlobalVar.SEX_FEMALE;
+                            tmp_user.Uid = uid;
+                            if (SQLOP.getInstance().AddUser(tmp_user) > 0)
+                            {
+                                res_user.Body = tmp_user;
+                            }
+                        }
+                    }
+                    catch (Exception e)
+                    {
+                        Console.WriteLine(e.Message);
+                    }
+                }
+                Content.Response.Write(JsonConvert.SerializeObject(res_user));
+                break;
             case "login":
                 //返回个人资料
+                if (Content.Request.HttpMethod != "POST")
+                    break;
                 CTData<CTPerson> logdata = new CTData<CTPerson>();
                 logdata.DataType = CTData<CTPerson>.DATATYPE_REPLY;
                 emailAddress = Content.Request.QueryString["email"].ToString();
@@ -81,7 +115,7 @@ public class ctValidate : IHttpHandler
                             person.Uid = dt_res.Rows[0][GlobalVar.User.UID].ToString();
                             person.Age = dt_res.Rows[0][GlobalVar.User.AGE].ToString();
                             person.School = new CTSchool();
-                            person.School.SCode=dt_res.Rows[0][GlobalVar.User.SCHOOLCODE].ToString();
+                            person.School.SCode = dt_res.Rows[0][GlobalVar.User.SCHOOLCODE].ToString();
                             DataTable dt = ctSqlHelper.getInstance().Query("select " + GlobalVar.SchoolInfo.SCHOOLNAME + " from " + GlobalVar.SchoolInfo.TABLE_SCHOOLINFO + " where " + GlobalVar.SchoolInfo.SCHOOLCODE + "='" + person.School.SCode + "'");
                             if (dt.Rows.Count > 0)
                             {
@@ -100,7 +134,21 @@ public class ctValidate : IHttpHandler
                 break;
             case "forgotpass": break;
             case "changepass": break;
-            case "checkuser": break;
+            case "checkemail":
+                CTData<bool> res_ckemail = new CTData<bool>();
+                res_ckemail.DataType = CTData<String>.DATATYPE_REPLY;
+                emailAddress = Content.Request.QueryString["email"].ToString();
+
+                if (SQLOP.getInstance().CheckEmailValidate(emailAddress))
+                {
+                    res_ckemail.Body = GlobalVar.SUCCESS;
+                }
+                else
+                {
+                    res_ckemail.Body = GlobalVar.FAIL;
+                }
+                Content.Response.Write(JsonConvert.SerializeObject(res_ckemail));
+                break;
 
         }
 

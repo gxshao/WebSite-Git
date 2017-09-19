@@ -25,7 +25,7 @@ public class ctSqlHelper
         }
         return mHelper;
     }
-    public bool executeSql(string sql)
+    public int executeSql(string sql)
     {
         SqlTransaction tran = null;
         SqlCommand sqlcmd = null;
@@ -37,9 +37,9 @@ public class ctSqlHelper
                 tran = sc.BeginTransaction();
                 sqlcmd = new SqlCommand(sql, sc);
                 sqlcmd.Transaction = tran;
-                sqlcmd.ExecuteNonQuery();
+                int count=sqlcmd.ExecuteNonQuery();
                 tran.Commit();
-
+                return count;
             }
             catch (SqlException e)
             {
@@ -47,12 +47,11 @@ public class ctSqlHelper
                     tran.Rollback();
 
                 sc.Close();
-                return false;
             }
             sc.Close();
-            return true;
+          
         }
-        return false;
+        return 0;
     }
     #region 查询
     public DataTable Query(string sql)

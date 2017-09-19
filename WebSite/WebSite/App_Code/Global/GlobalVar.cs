@@ -13,8 +13,9 @@ public class GlobalVar
     public const  int STATE_NONE = 0;
     public const int STATE_PENDING = 1;
     public const int STATE_BUSY = 2;
-    public const string SUCCESS = "Success";
-    public const string Fail = "Fail";
+    public const bool SUCCESS = true;
+    public const int CODE_VAL_TIME = 5; //验证码有效期
+    public const bool FAIL = false;
     public GlobalVar()
     {
         //

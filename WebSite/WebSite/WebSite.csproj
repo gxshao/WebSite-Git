@@ -218,6 +218,7 @@
     <Content Include="App_Code\Obj\CampusTalk\CTData.cs" />
     <Content Include="App_Code\Obj\CampusTalk\CTMessage.cs" />
     <Content Include="App_Code\Obj\CampusTalk\CTPerson.cs" />
+    <Content Include="App_Code\Utils\SQLOP.cs" />
     <Compile Include="others\news.aspx.cs">
       <DependentUpon>news.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

@@ -13,6 +13,19 @@ namespace WebSite.App_Code.Obj.CampusTalk
         string age;
         string userexplain;
         string state;
+        string password;
+        public string Password
+        {
+            get
+            {
+                return password;
+            }
+
+            set
+            {
+                password = value;
+            }
+        }
 
         public string Email
         {

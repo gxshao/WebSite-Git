@@ -60,4 +60,6 @@ public class CTUser: CTUserBase
             chatid = value;
         }
     }
+
+    
 }
