@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Web;
@@ -40,14 +41,21 @@ public class ctUtils
 
         return Encoding.UTF8.GetString(buffer);
     }
-    /// <summary>
-    /// 
-    /// 文件上传
-    /// </summary>
-    public static void uploadfile()
+    public static bool IsImage(string str)
     {
-
-
+        bool isimage = false;
+        string thestr = str.ToLower();
+        //限定只能上传jpg和gif图片
+        string[] allowExtension = { ".jpg", ".gif", ".bmp", ".png" };
+        //对上传的文件的类型进行一个个匹对
+        for (int i = 0; i < allowExtension.Length; i++)
+        {
+            if (thestr == allowExtension[i])
+            {
+                isimage = true;
+                break;
+            }
+        }
+        return isimage;
     }
-
 }

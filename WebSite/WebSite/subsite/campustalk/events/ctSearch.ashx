@@ -20,7 +20,7 @@ public class ctSearch : IHttpHandler {
         }
 
     }
- 
+    
     public bool IsReusable {
         get {
             return false;

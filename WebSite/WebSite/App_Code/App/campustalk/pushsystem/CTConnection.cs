@@ -50,10 +50,20 @@ public class CTConnection : PersistentConnection
                         break;
                     case CTData<Object>.DATATYPE_MESSAGE:
                         CTData<CTMessage> ctmsg = JsonConvert.DeserializeObject<CTData<CTMessage>>(data);
-                        //文本信息
+
                         CTMessage msg = ctmsg.Body;
-                        if (mFastClients.Count > 0 && mFastClients.ContainsKey(msg.To))
-                            Connection.Send(mFastClients[msg.To], ctmsg.Body.Body);
+
+                        switch (msg.Type)
+                        {
+                            //文本信息
+                            case CTMessage.MESSAGE_TYPE_TEXT:
+                                if (mFastClients.Count > 0 && mFastClients.ContainsKey(msg.To))
+                                    Connection.Send(mFastClients[msg.To], ctmsg.Body.Body);
+                                break;
+                            case CTMessage.MESSAGE_TYPE_EMOJI: break;
+                            case CTMessage.MESSAGE_TYPE_AUDIO: break;
+                            case CTMessage.MESSAGE_TYPE_PHOTO: break;
+                        }
                         break;
                 }
 

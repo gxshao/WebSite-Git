@@ -207,7 +207,6 @@ namespace WebSite.App_Code.Utils
                                                                             GlobalVar.User.SEX + "='" + user.Sex + "',"+
                                                                                 GlobalVar.User.SCHOOLCODE + "='" + user.School.SCode + "',"+ 
                                                                                 GlobalVar.User.NICKNAME + "='" + user.Nickname + "',"+ 
-                                                                                GlobalVar.User.HEADPIC + "='" + user.Headpic + "',"+ 
                                                                                 GlobalVar.User.USEREXPLAIN + "='" + user.Userexplain + "' where" + 
                                                                                 GlobalVar.User.UID+"='"+user.Uid+"'";
             try
@@ -238,6 +237,50 @@ namespace WebSite.App_Code.Utils
             }
             return 0;
         }
+        /// <summary>
+        /// 修改头像
+        /// </summary>
+        /// <param name="path"></param>
+        /// <param name="uid"></param>
+        /// <returns></returns>
+        public int updateHeadpic(string path, string uid)
+        {
+            string sql = "update " + GlobalVar.User.TABLE_USER + " set " + GlobalVar.User.HEADPIC + "='" + path + "' where " + GlobalVar.User.UID + "='" + uid + "'";
+            try
+            {
+                return ctSqlHelper.getInstance().executeSql(sql);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+            return 0;
+        }
 
+        /// <summary>
+        /// 插入GPS信息
+        /// </summary>
+        /// <param name="list"></param>
+        /// <returns></returns>
+
+        public int AddGpsInfo(ArrayList list) {
+            if (list.Count <= 0)
+                return 0;
+            string sql = "insert into " + GlobalVar.Location.TABLE_LOCATION + " (" + GlobalVar.Location.UID + "," + GlobalVar.Location.LATITUDE + "," + GlobalVar.Location.LONGITUDE + "," + GlobalVar.Location.TIME + ") values";
+            for (int i=0;i<list.Count;i++) {
+                CTLocation loc = (CTLocation)list[i];
+                sql += "('" + loc.Uid + "','" + loc.Latitude + "','" + loc.Longitude + "','" + loc.Datetime + "'),";
+            }
+            sql = sql.Substring(0, sql.Length - 1);
+            try
+            {
+                return ctSqlHelper.getInstance().executeSql(sql);
+            }
+            catch {
+
+            }
+            return 0;
+
+        }
     }
 }

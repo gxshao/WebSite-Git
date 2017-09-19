@@ -35,26 +35,26 @@ public class ctCommon : IHttpHandler
     /// </summary>
     private void HandleKeyEvents(string key)
     {
+        string uid = Content.Request.QueryString["uid"].ToString();
         switch (key)
         {
             case "getUserProfile":
                 {
                     CTData<CTPerson> res_user = new CTData<CTPerson>();
                     res_user.DataType = CTData<CTPerson>.DATATYPE_REPLY;
-                    string id = Content.Request.QueryString["uid"].ToString();
-                    if (id.Equals(""))
+                    if (uid.Equals(""))
                     {
                         Content.Response.Write(JsonConvert.SerializeObject(res_user));
                         break;
                     }
-                    res_user.Body = SQLOP.getInstance().getUserProfile(id);
+                    res_user.Body = SQLOP.getInstance().getUserProfile(uid);
                     Content.Response.Write(JsonConvert.SerializeObject(res_user));
                     break;
                 }
             case "followlist":
                 CTData<ArrayList> res_list = new CTData<ArrayList>();
                 res_list.DataType = CTData<ArrayList>.DATATYPE_REPLY;
-                string uid = Content.Request.QueryString["uid"].ToString();
+
                 if (uid.Equals(""))
                 {
                     Content.Response.Write(JsonConvert.SerializeObject(res_list));
@@ -67,21 +67,20 @@ public class ctCommon : IHttpHandler
                 CTData<bool> res_follow = new CTData<bool>();
                 res_follow.Body = GlobalVar.FAIL;
                 res_follow.DataType = CTData<bool>.DATATYPE_REPLY;
-                string mid = Content.Request.QueryString["uid"].ToString();
                 string tid = Content.Request.QueryString["tid"].ToString();
                 string op = Content.Request.QueryString["op"].ToString(); // 1=关注 0=取消
-                if (mid.Equals("") || tid.Equals("") || op.Equals(""))
+                if (uid.Equals("") || tid.Equals("") || op.Equals(""))
                 {
                     Content.Response.Write(JsonConvert.SerializeObject(res_follow));
                     break;
                 }
                 if (op.Equals("0"))
                 {
-                    res_follow.Body = SQLOP.getInstance().cancelfollow(mid, tid) > 0;
+                    res_follow.Body = SQLOP.getInstance().cancelfollow(uid, tid) > 0;
                 }
                 else if (op.Equals("1"))
                 {
-                    res_follow.Body = SQLOP.getInstance().followtid(mid, tid) > 0;
+                    res_follow.Body = SQLOP.getInstance().followtid(uid, tid) > 0;
                 }
                 Content.Response.Write(JsonConvert.SerializeObject(res_follow));
                 break;
@@ -90,13 +89,12 @@ public class ctCommon : IHttpHandler
                 CTData<bool> res_sign = new CTData<bool>();
                 res_sign.Body = GlobalVar.FAIL;
                 res_sign.DataType = CTData<bool>.DATATYPE_REPLY;
-                string sid = Content.Request.QueryString["uid"].ToString();
-                if (sid.Equals(""))
+                if (uid.Equals(""))
                 {
                     Content.Response.Write(JsonConvert.SerializeObject(res_sign));
                     break;
                 }
-                res_sign.Body = SQLOP.getInstance().AddSign(sid) > 0;
+                res_sign.Body = SQLOP.getInstance().AddSign(uid) > 0;
                 Content.Response.Write(JsonConvert.SerializeObject(res_sign));
                 break;
             case "updateprofile":
@@ -109,12 +107,69 @@ public class ctCommon : IHttpHandler
                     Content.Response.Write(JsonConvert.SerializeObject(res_pro));
                     break;
                 }
-                
+
                 res_pro.Body = SQLOP.getInstance().updateProfile(JsonConvert.DeserializeObject<CTPerson>(json_user)) > 0;
                 Content.Response.Write(JsonConvert.SerializeObject(res_pro));
                 break;
-            case "uploadheadpic": break;
-            case "uploadstucard": break;
+            case "uploadheadpic":
+                CTData<string> res_headpic = new CTData<string>();
+                res_headpic.DataType = CTData<string>.DATATYPE_REPLY;
+                res_headpic.Body = "";
+                if (uid.Equals(""))
+                {
+                    Content.Response.Write(JsonConvert.SerializeObject(res_headpic));
+                    break;
+                }
+                HttpPostedFile uploader = Content.Request.Files["headpic"];
+                if (uploader == null)
+                {
+                    Content.Response.Write(JsonConvert.SerializeObject(res_headpic));
+                    break;
+                }
+                else
+                {
+                    string fileName = uploader.FileName;
+                    string suffix = fileName.Substring(fileName.LastIndexOf(".")).ToLower();
+                    if (ctUtils.IsImage(suffix))
+                    {
+                        string picname = Guid.NewGuid().ToString();
+                        string url = HttpContext.Current.Server.MapPath("~/subsite/CampusTalk/images/headpic/" + picname + suffix);
+                        uploader.SaveAs(url);//保存图片  
+                        res_headpic.Body = "/subsite/CampusTalk/images/headpic/" + picname + suffix;
+                        SQLOP.getInstance().updateHeadpic(res_headpic.Body, uid);
+                    }
+                    Content.Response.Write(JsonConvert.SerializeObject(res_headpic));
+                }
+                break;
+            case "uploadstucard":
+                CTData<bool> res_stucard = new CTData<bool>();
+                res_stucard.DataType = CTData<string>.DATATYPE_REPLY;
+                res_stucard.Body = GlobalVar.FAIL;
+                if (uid.Equals(""))
+                {
+                    Content.Response.Write(JsonConvert.SerializeObject(res_stucard));
+                    break;
+                }
+                HttpPostedFile upload = Content.Request.Files["stucard"];
+                if (upload == null)
+                {
+                    Content.Response.Write(JsonConvert.SerializeObject(res_stucard));
+                    break;
+                }
+                else
+                {
+                    string fileName = upload.FileName;
+                    string suffix = fileName.Substring(fileName.LastIndexOf(".")).ToLower();
+                    if (ctUtils.IsImage(suffix))
+                    {
+                        string picname = Guid.NewGuid().ToString();
+                        string url = HttpContext.Current.Server.MapPath("~/subsite/CampusTalk/images/stucard/" + picname + suffix);
+                        upload.SaveAs(url);//保存图片
+                       res_stucard.Body = SQLOP.getInstance().updateHeadpic( "/subsite/CampusTalk/images/stucard/" + picname + suffix, uid)>0;
+                    }
+                    Content.Response.Write(JsonConvert.SerializeObject(res_stucard));
+                }
+                break;
 
         }
     }

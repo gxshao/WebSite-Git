@@ -137,7 +137,7 @@
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="subsite\CampusTalk\events\ctLocations.ashx" />
+    <Content Include="subsite\CampusTalk\events\ctGpsInfo.ashx" />
     <None Include="WebSite\packages\jQuery.1.6.4\Content\Scripts\jquery-1.6.4-vsdoc.js" />
     <Content Include="WebSite\packages\jQuery.1.6.4\Content\Scripts\jquery-1.6.4.js" />
     <Content Include="WebSite\packages\jQuery.1.6.4\Content\Scripts\jquery-1.6.4.min.js" />
@@ -219,13 +219,14 @@
     <Content Include="App_Code\Obj\CampusTalk\CTMessage.cs" />
     <Content Include="App_Code\Obj\CampusTalk\CTPerson.cs" />
     <Content Include="App_Code\Utils\SQLOP.cs" />
+    <Content Include="App_Code\Obj\CampusTalk\CTLocation.cs" />
     <Compile Include="others\news.aspx.cs">
       <DependentUpon>news.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="subsite\CampusTalk\events\ctLocations.ashx.cs">
-      <DependentUpon>ctLocations.ashx</DependentUpon>
+    <Compile Include="subsite\CampusTalk\events\ctGpsInfo.ashx.cs">
+      <DependentUpon>ctGpsInfo.ashx</DependentUpon>
     </Compile>
     <Compile Include="subsite\CampusTalk\pages\Login.aspx.cs">
       <DependentUpon>Login.aspx</DependentUpon>

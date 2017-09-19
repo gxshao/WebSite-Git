@@ -7,8 +7,14 @@ namespace WebSite.App_Code.Obj.CampusTalk
 {
     public class CTMessage
     {
+        public const string MESSAGE_TYPE_TEXT = "0";
+
+        public const string MESSAGE_TYPE_EMOJI = "1";
+        public const string MESSAGE_TYPE_AUDIO = "2";
+        public const string MESSAGE_TYPE_PHOTO = "3";
         string from;
         string to;
+        string type; // 文字 0，表情 1，语音 2， 图片 3
         string body;
         string time;
 
@@ -61,6 +67,19 @@ namespace WebSite.App_Code.Obj.CampusTalk
             set
             {
                 time = value;
+            }
+        }
+
+        public string Type
+        {
+            get
+            {
+                return type;
+            }
+
+            set
+            {
+                type = value;
             }
         }
     }
