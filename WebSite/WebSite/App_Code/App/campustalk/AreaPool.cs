@@ -36,11 +36,16 @@ public class CTAreaPool
         if (mPool.ContainsKey(user.School.SCode))
         {
             mPool[user.School.SCode].addUser(user);
+            if (mPool[user.School.SCode].IsMatched)
+            {
+                mPool[user.School.SCode].StartMatch();
+            }
         }
         else
         {
             ctUserPool tmpUserPool = new ctUserPool();
             tmpUserPool.addUser(user);
+            tmpUserPool.StartMatch();
             mPool.Add(user.School.SCode, tmpUserPool);
         }
 
@@ -66,6 +71,9 @@ public class CTAreaPool
         if (!schoolcode.Equals("") && mPool.ContainsKey(schoolcode))
         {
             mPool[schoolcode].removeUser(uid);
+        }
+        if (mPool[schoolcode].Count<=0) {
+            mPool[schoolcode].StopMatch();
         }
     }
 

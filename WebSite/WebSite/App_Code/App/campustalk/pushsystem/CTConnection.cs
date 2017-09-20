@@ -50,20 +50,22 @@ public class CTConnection : PersistentConnection
                         break;
                     case CTData<Object>.DATATYPE_MESSAGE:
                         CTData<CTMessage> ctmsg = JsonConvert.DeserializeObject<CTData<CTMessage>>(data);
-
                         CTMessage msg = ctmsg.Body;
+                        if (mFastClients.Count > 0 && mFastClients.ContainsKey(msg.To))
+                            Connection.Send(mFastClients[msg.To], ctmsg.Body.Body);
+                        /*
+                        
 
                         switch (msg.Type)
                         {
                             //文本信息
                             case CTMessage.MESSAGE_TYPE_TEXT:
-                                if (mFastClients.Count > 0 && mFastClients.ContainsKey(msg.To))
-                                    Connection.Send(mFastClients[msg.To], ctmsg.Body.Body);
+                               
                                 break;
                             case CTMessage.MESSAGE_TYPE_EMOJI: break;
                             case CTMessage.MESSAGE_TYPE_AUDIO: break;
                             case CTMessage.MESSAGE_TYPE_PHOTO: break;
-                        }
+                        }*/
                         break;
                 }
 
@@ -77,6 +79,10 @@ public class CTConnection : PersistentConnection
         }
 
         return base.OnReceived(request, connectionId, data);
+    }
+    protected override bool AuthorizeRequest(IRequest request)
+    {
+        return base.AuthorizeRequest(request);
     }
     protected override Task OnDisconnected(IRequest request, string connectionId, bool stopCalled)
     {

@@ -15,6 +15,25 @@ public class ctUserPool
     Thread mMatchThread = null;
     bool isMatched = false;
     object LocObj = new object();
+    private int count;
+
+    internal int Count
+    {
+        get
+        {
+
+            return mPool[GlobalVar.SEX_MALE].Count+mPool[GlobalVar.SEX_FEMALE].Count;
+        }
+    }
+
+    public bool IsMatched
+    {
+        get
+        {
+            return isMatched;
+        }
+    }
+
     public ctUserPool()
     {
         mPool = new Dictionary<string, TempPool>();
@@ -24,14 +43,19 @@ public class ctUserPool
         mPool.Add(GlobalVar.SEX_MALE, mA);
         mPool.Add(GlobalVar.SEX_FEMALE, mB);
         mMatchThread = new Thread(Matching);
+    }
+    public void StartMatch() {
         mMatchThread.Start();
-
+        isMatched = false;
+    }
+    public void StopMatch() {
+        isMatched = true;
     }
     public void Matching()
     {
         //没有匹配到就继续匹配
 
-        while (!isMatched)
+        while (!IsMatched)
         {
             lock (LocObj)
             {
@@ -122,9 +146,19 @@ public class ctUserPool
 class TempPool
 {
     object LocObj = new object();
+    int count;
     Dictionary<string, CTUser> mList = null;//空闲列表
     Dictionary<string, CTUser> mPending = null; //挂起列表
     Dictionary<string, CTUser> mBusy = null; //聊天列表
+
+    public int Count
+    {
+        get
+        {
+            return mList.Count+mPending.Count+mBusy.Count;
+        }
+    }
+
     public TempPool()
     {
         mList = new Dictionary<string, CTUser>();

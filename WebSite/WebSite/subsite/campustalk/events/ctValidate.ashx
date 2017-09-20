@@ -143,7 +143,7 @@ public class ctValidate : IHttpHandler
                 break;
             case "forgotpass": break;
             case "changepass": break;
-            case "checkemail":
+            case "ckemail":
                 CTData<bool> res_ckemail = new CTData<bool>();
                 res_ckemail.DataType = CTData<String>.DATATYPE_REPLY;
                 emailAddress = Content.Request.QueryString["email"];
