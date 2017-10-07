@@ -10,9 +10,9 @@ public class CTUser: CTUserBase
 {
     string sex;  //性别
     string uid;  //UUID+0 ||UUID+1
-    string connectionid; //通信地址
+    string connectionid=""; //通信地址
     string state;  //通信状态
-    string chatid;
+    string chatid="";
     CTSchool school; //学校
     public CTUser()
     {

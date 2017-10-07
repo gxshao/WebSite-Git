@@ -10,6 +10,7 @@ public class CTSchool
 {
     string sCode = "";
     string sName = "";
+    string areacode = "";
     public CTSchool()
     {
         //
@@ -40,6 +41,19 @@ public class CTSchool
         set
         {
             sName = value;
+        }
+    }
+
+    public string Areacode
+    {
+        get
+        {
+            return areacode;
+        }
+
+        set
+        {
+            areacode = value;
         }
     }
 }

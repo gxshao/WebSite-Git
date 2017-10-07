@@ -38,6 +38,7 @@ public class CTConnection : PersistentConnection
                     case CTData<Object>.DATATYPE_CONNECTED:
                         CTData<CTUser> s = JsonConvert.DeserializeObject<CTData<CTUser>>(data);
                         CTUser user = s.Body;
+                        user.ConnectionId = connectionId;
                         CTAreaPool.getInstance().addUser(user);
                         CTUserBase userbase = new CTUserBase();
                         userbase.Sex = user.Sex;
@@ -52,7 +53,7 @@ public class CTConnection : PersistentConnection
                         CTData<CTMessage> ctmsg = JsonConvert.DeserializeObject<CTData<CTMessage>>(data);
                         CTMessage msg = ctmsg.Body;
                         if (mFastClients.Count > 0 && mFastClients.ContainsKey(msg.To))
-                            Connection.Send(mFastClients[msg.To], ctmsg.Body.Body);
+                            Connection.Send(mFastClients[msg.To], data);
                         /*
                         
 

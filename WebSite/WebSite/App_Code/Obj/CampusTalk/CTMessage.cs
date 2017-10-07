@@ -8,7 +8,6 @@ namespace WebSite.App_Code.Obj.CampusTalk
     public class CTMessage
     {
         public const string MESSAGE_TYPE_TEXT = "0";
-
         public const string MESSAGE_TYPE_EMOJI = "1";
         public const string MESSAGE_TYPE_AUDIO = "2";
         public const string MESSAGE_TYPE_PHOTO = "3";

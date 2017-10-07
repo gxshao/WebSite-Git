@@ -29,6 +29,7 @@ public class ctSqlHelper
     {
         SqlTransaction tran = null;
         SqlCommand sqlcmd = null;
+        int count = 0;
         if (sc != null)
         {
             try
@@ -37,9 +38,8 @@ public class ctSqlHelper
                 tran = sc.BeginTransaction();
                 sqlcmd = new SqlCommand(sql, sc);
                 sqlcmd.Transaction = tran;
-                int count=sqlcmd.ExecuteNonQuery();
+                 count=sqlcmd.ExecuteNonQuery();
                 tran.Commit();
-                return count;
             }
             catch (SqlException e)
             {
@@ -51,7 +51,7 @@ public class ctSqlHelper
             sc.Close();
           
         }
-        return 0;
+        return count;
     }
     #region 查询
     public DataTable Query(string sql)
@@ -63,17 +63,20 @@ public class ctSqlHelper
         {
             try
             {
-                sc.Open();
+                if(sc.State!= ConnectionState.Open)
+                    sc.Open();
                 tran = sc.BeginTransaction();
                 sqlcmd = new SqlCommand(sql, sc);
                 sqlcmd.Transaction = tran;
                 SqlDataReader sr = sqlcmd.ExecuteReader();
                 dt.Load(sr);
                 tran.Commit();
+                tran.Dispose();
 
             }
             catch (SqlException e)
             {
+                Console.WriteLine(e.Message);
                 if (tran != null)
                     tran.Rollback();
                 sc.Close();

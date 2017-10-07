@@ -16,6 +16,10 @@ public class GlobalVar
     public const bool SUCCESS = true;
     public const int CODE_VAL_TIME = 5; //验证码有效期
     public const bool FAIL = false;
+    public const string USER_STATE_GOOD = "0"; //正常
+    public const string USER_STATE_UNATH = "1";//未认证
+    public const string USER_STATE_WAITING = "2";//待认证
+    public const string USER_STATE_STOPPED = "3";//已停用
     public GlobalVar()
     {
         //

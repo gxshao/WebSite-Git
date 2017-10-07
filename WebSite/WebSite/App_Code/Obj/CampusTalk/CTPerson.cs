@@ -14,6 +14,7 @@ namespace WebSite.App_Code.Obj.CampusTalk
         string userexplain;
         string state;
         string password;
+        string stucard;
         public string Password
         {
             get
@@ -102,6 +103,19 @@ namespace WebSite.App_Code.Obj.CampusTalk
             set
             {
                 state = value;
+            }
+        }
+
+        public string Stucard
+        {
+            get
+            {
+                return stucard;
+            }
+
+            set
+            {
+                stucard = value;
             }
         }
     }

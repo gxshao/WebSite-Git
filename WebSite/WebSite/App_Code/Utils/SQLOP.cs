@@ -207,7 +207,7 @@ namespace WebSite.App_Code.Utils
                                                                             GlobalVar.User.SEX + "='" + user.Sex + "',"+
                                                                                 GlobalVar.User.SCHOOLCODE + "='" + user.School.SCode + "',"+ 
                                                                                 GlobalVar.User.NICKNAME + "='" + user.Nickname + "',"+ 
-                                                                                GlobalVar.User.USEREXPLAIN + "='" + user.Userexplain + "' where" + 
+                                                                                GlobalVar.User.USEREXPLAIN + "='" + user.Userexplain + "' where " + 
                                                                                 GlobalVar.User.UID+"='"+user.Uid+"'";
             try
             {
@@ -227,7 +227,7 @@ namespace WebSite.App_Code.Utils
         /// <param name="uid"></param>
         /// <returns></returns>
         public int updateStucard(string path,string uid) {
-            string sql = "update "+GlobalVar.User.TABLE_USER+" set "+GlobalVar.User.STUCARD+"='"+path+"' where "+GlobalVar.User.UID+"='"+uid+"'";
+            string sql = "update "+GlobalVar.User.TABLE_USER+" set "+GlobalVar.User.STUCARD+"='"+path+"',"+GlobalVar.User.STATE+"='"+GlobalVar.USER_STATE_WAITING+"' where "+GlobalVar.User.UID+"='"+uid+"'";
             try
             {
                 return ctSqlHelper.getInstance().executeSql(sql);
@@ -281,6 +281,48 @@ namespace WebSite.App_Code.Utils
             }
             return 0;
 
+        }
+
+        /// <summary>
+        /// 
+        /// 1.获取地区列表
+        /// </summary>
+        /// <returns></returns>
+        public ArrayList getAreaList()
+        {
+            ArrayList list = new ArrayList();
+            string sql = "select * from " + GlobalVar.AreaInfo.TABLE_AREA;
+            DataTable dt_area = ctSqlHelper.getInstance().Query(sql);
+            if (dt_area.Rows.Count>0) {
+                for (int i=0;i<dt_area.Rows.Count;i++) {
+                    CTArea area = new CTArea();
+                    area.Areacode = dt_area.Rows[i][GlobalVar.AreaInfo.AREACODE].ToString();
+                    area.Areaname = dt_area.Rows[i][GlobalVar.AreaInfo.AREANAME].ToString();
+                    list.Add(area);
+                }
+            }
+            return list;
+        }
+        /// <summary>
+        /// 
+        /// 1.获取学校列表
+        /// </summary>
+        /// <returns></returns>
+        public ArrayList getSchoolList()
+        {
+            ArrayList list = new ArrayList();
+            string sql = "select * from " + GlobalVar.SchoolInfo.TABLE_SCHOOLINFO;
+            DataTable dt_school = ctSqlHelper.getInstance().Query(sql);
+            if (dt_school.Rows.Count>0) {
+                for (int i=0;i<dt_school.Rows.Count;i++) {
+                    CTSchool school = new CTSchool();
+                    school.Areacode = dt_school.Rows[i][GlobalVar.SchoolInfo.AREACODE].ToString();
+                    school.SName = dt_school.Rows[i][GlobalVar.SchoolInfo.SCHOOLNAME].ToString();
+                    school.SCode = dt_school.Rows[i][GlobalVar.SchoolInfo.SCHOOLCODE].ToString();
+                    list.Add(school);
+                }
+            }
+            return list;
         }
     }
 }

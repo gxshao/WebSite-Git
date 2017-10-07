@@ -32,6 +32,7 @@ public class ctCommon : IHttpHandler
     /// 4.关注和取消关注
     /// 5.签到系统
     /// 6.资料完善
+    /// 7.获取地区和学校
     /// </summary>
     private void HandleKeyEvents(string key)
     {
@@ -120,7 +121,7 @@ public class ctCommon : IHttpHandler
                     Content.Response.Write(JsonConvert.SerializeObject(res_headpic));
                     break;
                 }
-                HttpPostedFile uploader = Content.Request.Files["headpic"];
+                HttpPostedFile uploader = Content.Request.Files[0];
                 if (uploader == null)
                 {
                     Content.Response.Write(JsonConvert.SerializeObject(res_headpic));
@@ -135,22 +136,22 @@ public class ctCommon : IHttpHandler
                         string picname = Guid.NewGuid().ToString();
                         string url = HttpContext.Current.Server.MapPath("~/subsite/CampusTalk/images/headpic/" + picname + suffix);
                         uploader.SaveAs(url);//保存图片  
-                        res_headpic.Body = "/subsite/CampusTalk/images/headpic/" + picname + suffix;
+                        res_headpic.Body =picname + suffix;
                         SQLOP.getInstance().updateHeadpic(res_headpic.Body, uid);
                     }
                     Content.Response.Write(JsonConvert.SerializeObject(res_headpic));
                 }
                 break;
             case "uploadstucard":
-                CTData<bool> res_stucard = new CTData<bool>();
+                CTData<string> res_stucard = new CTData<string>();
                 res_stucard.DataType = CTData<string>.DATATYPE_REPLY;
-                res_stucard.Body = GlobalVar.FAIL;
+                res_stucard.Body = "";
                 if (uid==null)
                 {
                     Content.Response.Write(JsonConvert.SerializeObject(res_stucard));
                     break;
                 }
-                HttpPostedFile upload = Content.Request.Files["stucard"];
+                HttpPostedFile upload = Content.Request.Files[0];
                 if (upload == null)
                 {
                     Content.Response.Write(JsonConvert.SerializeObject(res_stucard));
@@ -165,10 +166,22 @@ public class ctCommon : IHttpHandler
                         string picname = Guid.NewGuid().ToString();
                         string url = HttpContext.Current.Server.MapPath("~/subsite/CampusTalk/images/stucard/" + picname + suffix);
                         upload.SaveAs(url);//保存图片
-                        res_stucard.Body = SQLOP.getInstance().updateHeadpic( "/subsite/CampusTalk/images/stucard/" + picname + suffix, uid)>0;
+                        SQLOP.getInstance().updateStucard(picname + suffix, uid);
+                        res_stucard.Body =picname + suffix;
                     }
                     Content.Response.Write(JsonConvert.SerializeObject(res_stucard));
                 }
+                break;
+            case "schoolinfo":
+                CTData<string> res_schoolinfo = new CTData<string>();
+                res_schoolinfo.DataType = CTData<string>.DATATYPE_REPLY;
+                res_schoolinfo.Body = "";
+                ArrayList areas=SQLOP.getInstance().getAreaList();
+                ArrayList schools = SQLOP.getInstance().getSchoolList();
+                string str_area = JsonConvert.SerializeObject(areas);
+                string str_shool = JsonConvert.SerializeObject(schools);
+                res_schoolinfo.Body = str_area + "$" + str_shool;
+                Content.Response.Write(JsonConvert.SerializeObject(res_schoolinfo));
                 break;
 
         }

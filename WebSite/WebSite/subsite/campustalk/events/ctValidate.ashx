@@ -85,6 +85,7 @@ public class ctValidate : IHttpHandler
                             string uid = Guid.NewGuid().ToString();
                             uid += tmp_user.Sex;
                             tmp_user.Uid = uid;
+                            tmp_user.State = GlobalVar.USER_STATE_UNATH;
                             if (SQLOP.getInstance().AddUser(tmp_user) > 0)
                             {
                                 res_user.Body = tmp_user;
@@ -134,6 +135,7 @@ public class ctValidate : IHttpHandler
                             person.Sex = dt_res.Rows[0][GlobalVar.User.SEX].ToString();
                             person.Userexplain = dt_res.Rows[0][GlobalVar.User.USEREXPLAIN].ToString();
                             person.State = dt_res.Rows[0][GlobalVar.User.STATE].ToString();
+                            person.Stucard = dt_res.Rows[0][GlobalVar.User.STUCARD].ToString();
                             person.Nickname = dt_res.Rows[0][GlobalVar.User.NICKNAME].ToString();
                         }
                     }

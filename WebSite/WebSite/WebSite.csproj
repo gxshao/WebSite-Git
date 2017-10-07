@@ -220,6 +220,7 @@
     <Content Include="App_Code\Obj\CampusTalk\CTPerson.cs" />
     <Content Include="App_Code\Utils\SQLOP.cs" />
     <Content Include="App_Code\Obj\CampusTalk\CTLocation.cs" />
+    <Content Include="App_Code\Obj\CampusTalk\CTArea.cs" />
     <Compile Include="others\news.aspx.cs">
       <DependentUpon>news.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
