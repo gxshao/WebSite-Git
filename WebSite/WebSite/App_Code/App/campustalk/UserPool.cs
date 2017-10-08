@@ -24,7 +24,7 @@ public class ctUserPool
         get
         {
 
-            return mPool[GlobalVar.SEX_MALE].Count+mPool[GlobalVar.SEX_FEMALE].Count;
+            return mPool[GlobalVar.SEX_MALE].Count + mPool[GlobalVar.SEX_FEMALE].Count;
         }
     }
 
@@ -46,11 +46,13 @@ public class ctUserPool
         mPool.Add(GlobalVar.SEX_FEMALE, mB);
         mMatchThread = new Thread(Matching);
     }
-    public void StartMatch() {
+    public void StartMatch()
+    {
         mMatchThread.Start();
         isMatched = false;
     }
-    public void StopMatch() {
+    public void StopMatch()
+    {
         isMatched = true;
     }
     public void Matching()
@@ -61,30 +63,38 @@ public class ctUserPool
         {
             lock (LocObj)
             {
-                CTUser man = mPool[GlobalVar.SEX_MALE].MatchUser();
-                CTUser stranger = mPool[GlobalVar.SEX_FEMALE].MatchUser();
-                if (stranger != null && man != null)
+                try
                 {
-                    string id = System.Guid.NewGuid().ToString();
-                    man.Chatid = id;
-                    stranger.Chatid = id;
-                    moveUser(GlobalVar.STATE_BUSY, man.Uid);
-                    moveUser(GlobalVar.STATE_BUSY, stranger.Uid);
-                    //推送给用户匹配成功通知
-                    List<CTUser> listuser = new List<CTUser>();
-                    listuser.Add(man);
-                    listuser.Add(stranger);
-                    mChattingRoom.Add(id, listuser);
-                    //推送信息包括:State:success,Stranger:uid
-                    CTData<string> data = new CTData<string>();
-                    data.DataType = CTData<string>.DATATYPE_REPLY;
-                    data.Body = stranger.Uid;
-                    CTPushMsg.Send(man.ConnectionId, JsonConvert.SerializeObject(data));
-                    data.Body = man.Uid;
-                    CTPushMsg.Send(stranger.ConnectionId, JsonConvert.SerializeObject(data));
+                    CTUser man = mPool[GlobalVar.SEX_MALE].MatchUser();
+                    CTUser stranger = mPool[GlobalVar.SEX_FEMALE].MatchUser();
+                    if (stranger != null && man != null)
+                    {
+                        string id = System.Guid.NewGuid().ToString();
+                        man.Chatid = id;
+                        stranger.Chatid = id;
+                        moveUser(GlobalVar.STATE_BUSY, man.Uid);
+                        moveUser(GlobalVar.STATE_BUSY, stranger.Uid);
+                        //推送给用户匹配成功通知
+                        List<CTUser> listuser = new List<CTUser>();
+                        listuser.Add(man);
+                        listuser.Add(stranger);
+                        mChattingRoom.Add(id, listuser);
+                        //推送信息包括:State:success,Stranger:uid
+                        CTData<string> data = new CTData<string>();
+                        data.DataType = CTData<string>.DATATYPE_REPLY;
+                        data.Body = stranger.Uid;
+                        CTPushMsg.Send(man.ConnectionId, JsonConvert.SerializeObject(data));
+                        data.Body = man.Uid;
+                        CTPushMsg.Send(stranger.ConnectionId, JsonConvert.SerializeObject(data));
+                    }
+
+                }
+                catch
+                {
+
                 }
             }
-            if (mPool[GlobalVar.SEX_MALE].isPendingEmpty()||mPool[GlobalVar.SEX_FEMALE].isPendingEmpty())
+            if (mPool[GlobalVar.SEX_MALE].isPendingEmpty() || mPool[GlobalVar.SEX_FEMALE].isPendingEmpty())
             {
                 Thread.Sleep(3000);
             }
@@ -98,7 +108,8 @@ public class ctUserPool
     {
         if (user.Sex.Equals(""))
             return;
-        if (user.Sex!=GlobalVar.SEX_MALE&&user.Sex!=GlobalVar.SEX_FEMALE){
+        if (user.Sex != GlobalVar.SEX_MALE && user.Sex != GlobalVar.SEX_FEMALE)
+        {
             return;
         }
         TempPool tp = mPool[user.Sex];
@@ -120,12 +131,13 @@ public class ctUserPool
                     if (mChattingRoom.ContainsKey(user.Chatid))
                     {
                         List<CTUser> list = mChattingRoom[user.Chatid];
-                        foreach (CTUser tu in list) {
+                        foreach (CTUser tu in list)
+                        {
                             if (!tu.Uid.Equals(user.Uid))
                             {
                                 tu.Chatid = "";
                                 tu.State = GlobalVar.STATE_PENDING + "";
-                                moveUser(GlobalVar.STATE_PENDING,tu.Uid);
+                                moveUser(GlobalVar.STATE_PENDING, tu.Uid);
                                 CTData<string> msg = new CTData<string>();
                                 msg.DataType = CTData<string>.DATATYPE_CONNECTED;
                                 msg.Body = "next";
@@ -133,6 +145,7 @@ public class ctUserPool
                             }
                         }
                         mChattingRoom.Remove(user.Chatid);
+                        user.Chatid = "";
                     }
                 }
             }
@@ -166,7 +179,7 @@ class TempPool
     {
         get
         {
-            return mList.Count+mPending.Count+mBusy.Count;
+            return mList.Count + mPending.Count + mBusy.Count;
         }
     }
 
@@ -218,32 +231,29 @@ class TempPool
             if (tmpList != null && tmpList.Count > 0)
             {
                 tmpUser = tmpList[uid];
-                if (tmpUser==null) {
+                if (tmpUser == null)
+                {
                     return null;
                 }
                 switch (to)
                 {
                     case GlobalVar.STATE_NONE:
-                          if (!tmpUser.Chatid.Equals(""))
-                                tmpUser.Chatid = "";
                         tmpUser.State = GlobalVar.STATE_NONE + "";
                         if (!mList.ContainsKey(uid))  //不包含则添加进去
-                                mList.Add(tmpUser.Uid, tmpUser);
-                            
+                            mList.Add(tmpUser.Uid, tmpUser);
+
                         break;
                     case GlobalVar.STATE_PENDING:
-                            if (!tmpUser.Chatid.Equals(""))
-                                tmpUser.Chatid = "";
                         tmpUser.State = GlobalVar.STATE_PENDING + "";
                         if (!mPending.ContainsKey(tmpUser.Uid))
-                                mPending.Add(tmpUser.Uid, tmpUser);
-                           
+                            mPending.Add(tmpUser.Uid, tmpUser);
+
                         break;
                     case GlobalVar.STATE_BUSY:
                         if (!tmpUser.Chatid.Equals(""))
                             tmpUser.State = GlobalVar.STATE_BUSY + "";
                         if (!mBusy.ContainsKey(tmpUser.Uid))
-                                mBusy.Add(tmpUser.Uid, tmpUser);
+                            mBusy.Add(tmpUser.Uid, tmpUser);
                         break;
                 }
                 tmpList.Remove(uid);
@@ -287,7 +297,8 @@ class TempPool
         }
     }
 
-    public bool isPendingEmpty() {
+    public bool isPendingEmpty()
+    {
         return mPending.Count == 0;
     }
 }
