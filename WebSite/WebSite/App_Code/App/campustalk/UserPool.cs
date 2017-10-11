@@ -162,7 +162,17 @@ public class ctUserPool
         mPool[ctUtils.getSexbyUid(uid)].RemoveUser(uid);
     }
 
+    //测试功能
+    public ArrayList getAlluserNickname()
+    {
+        ArrayList list = new ArrayList();
+        foreach (KeyValuePair<string, TempPool> temp in mPool)
+        {
+            list.AddRange(temp.Value.getAlluserNickname());
+        }
 
+        return list;
+    }
 
 
 }
@@ -300,5 +310,23 @@ class TempPool
     public bool isPendingEmpty()
     {
         return mPending.Count == 0;
+    }
+    //测试功能
+    public ArrayList getAlluserNickname() {
+        ArrayList list = new ArrayList();
+        foreach (KeyValuePair<string,CTUser> user in mList)
+        {
+            list.Add(user.Value.Uid);
+        }
+        foreach (KeyValuePair<string, CTUser> user in mPending)
+        {
+            list.Add(user.Value.Uid);
+        }
+        foreach (KeyValuePair<string, CTUser> user in mBusy)
+        {
+            list.Add(user.Value.Uid);
+        }
+
+        return list;
     }
 }

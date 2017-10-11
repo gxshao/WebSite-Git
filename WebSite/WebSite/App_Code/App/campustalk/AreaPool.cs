@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
@@ -11,6 +12,34 @@ public class CTAreaPool
     static CTAreaPool mCtAp = null;
     object LockObj = new object();
     Dictionary<string, ctUserPool> mPool = null;
+    int count = 0; //获取当前连接池所有用户数
+    int schoolCount = 0;  //在线学校数
+    public int Count
+    {
+        get
+        {
+            return count;
+        }
+
+        set
+        {
+            count = value;
+        }
+    }
+
+    public int SchoolCount
+    {
+        get
+        {
+            return schoolCount;
+        }
+
+        set
+        {
+            schoolCount = value;
+        }
+    }
+
     public CTAreaPool()
     {
         mPool = new Dictionary<string, ctUserPool>();
@@ -47,7 +76,9 @@ public class CTAreaPool
             tmpUserPool.addUser(user);
             tmpUserPool.StartMatch();
             mPool.Add(user.School.SCode, tmpUserPool);
+            schoolCount++;
         }
+        count++;
 
     }
 
@@ -75,6 +106,7 @@ public class CTAreaPool
         if (mPool[schoolcode].Count<=0) {
             mPool[schoolcode].StopMatch();
         }
+        count--;
     }
 
     /*******************2017/9/06 邵国鑫****************/
@@ -82,4 +114,14 @@ public class CTAreaPool
     //匹配功能
     //结束匹配
     /****************************************************/
+    ///以下均为测试功能不作实际使用
+    public ArrayList getAllStuNickname()
+    {
+        ArrayList list = new ArrayList();
+        foreach(KeyValuePair<string,ctUserPool> temp in mPool)
+        {
+            list.AddRange(temp.Value.getAlluserNickname());
+        }
+        return list;
+    }
 }
