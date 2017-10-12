@@ -47,6 +47,7 @@ public class ctSqlHelper
                     tran.Rollback();
 
                 sc.Close();
+                throw e;
             }
             sc.Close();
           
@@ -80,6 +81,7 @@ public class ctSqlHelper
                 if (tran != null)
                     tran.Rollback();
                 sc.Close();
+                throw e;
 
             }
             sc.Close();
