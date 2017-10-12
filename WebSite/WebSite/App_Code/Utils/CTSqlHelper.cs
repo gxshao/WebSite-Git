@@ -13,6 +13,7 @@ public class ctSqlHelper
     SqlConnection sc;
     string conn = System.Web.Configuration.WebConfigurationManager.ConnectionStrings["ConnCampusTalk"].ToString();
     static ctSqlHelper mHelper = null;
+    object lock_Obj = new object();
     public ctSqlHelper()
     {
         sc = new SqlConnection(conn);
@@ -27,62 +28,70 @@ public class ctSqlHelper
     }
     public int executeSql(string sql)
     {
-        SqlTransaction tran = null;
-        SqlCommand sqlcmd = null;
         int count = 0;
-        if (sc != null)
+        lock (lock_Obj)
         {
-            try
+            SqlTransaction tran = null;
+            SqlCommand sqlcmd = null;
+           
+            if (sc != null)
             {
-                sc.Open();
-                tran = sc.BeginTransaction();
-                sqlcmd = new SqlCommand(sql, sc);
-                sqlcmd.Transaction = tran;
-                 count=sqlcmd.ExecuteNonQuery();
-                tran.Commit();
-            }
-            catch (SqlException e)
-            {
-                if (tran != null)
-                    tran.Rollback();
+                try
+                {
+                    sc.Open();
+                    tran = sc.BeginTransaction();
+                    sqlcmd = new SqlCommand(sql, sc);
+                    sqlcmd.Transaction = tran;
+                    count = sqlcmd.ExecuteNonQuery();
+                    tran.Commit();
+                }
+                catch (SqlException e)
+                {
+                    if (tran != null)
+                        tran.Rollback();
 
+                    sc.Close();
+                }
                 sc.Close();
+
             }
-            sc.Close();
-          
         }
         return count;
     }
     #region 查询
     public DataTable Query(string sql)
     {
-        SqlTransaction tran = null;
-        SqlCommand sqlcmd = null;
         DataTable dt = new DataTable();
-        if (sc != null)
+        lock (lock_Obj)
         {
-            try
+            SqlTransaction tran = null;
+            SqlCommand sqlcmd = null;
+          
+            if (sc != null)
             {
-                if(sc.State!= ConnectionState.Open)
-                    sc.Open();
-                tran = sc.BeginTransaction();
-                sqlcmd = new SqlCommand(sql, sc);
-                sqlcmd.Transaction = tran;
-                SqlDataReader sr = sqlcmd.ExecuteReader();
-                dt.Load(sr);
-                tran.Commit();
-                tran.Dispose();
+                try
+                {
+                    if (sc.State != ConnectionState.Open)
+                        sc.Open();
+                    tran = sc.BeginTransaction();
+                    sqlcmd = new SqlCommand(sql, sc);
+                    sqlcmd.Transaction = tran;
+                    SqlDataReader sr = sqlcmd.ExecuteReader();
+                    dt.Load(sr);
+                    tran.Commit();
+                    tran.Dispose();
 
-            }
-            catch (SqlException e)
-            {
-                Console.WriteLine(e.Message);
-                if (tran != null)
-                    tran.Rollback();
+                }
+                catch (SqlException e)
+                {
+                    Console.WriteLine(e.Message);
+                    if (tran != null)
+                        tran.Rollback();
+                    sc.Close();
+
+                }
                 sc.Close();
-
             }
-            sc.Close();
         }
         return dt;
     }

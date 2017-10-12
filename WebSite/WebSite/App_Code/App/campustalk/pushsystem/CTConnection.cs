@@ -36,18 +36,29 @@ public class CTConnection : PersistentConnection
                 switch (d.DataType)
                 {
                     case CTData<Object>.DATATYPE_CONNECTED:
-                        CTData<CTUser> s = JsonConvert.DeserializeObject<CTData<CTUser>>(data);
-                        CTUser user = s.Body;
-                        user.ConnectionId = connectionId;
-                        CTAreaPool.getInstance().addUser(user);
-                        CTUserBase userbase = new CTUserBase();
-                        userbase.Sex = user.Sex;
-                        userbase.Uid = user.Uid;
-                        userbase.School = user.School;
-                        if (!mClients.ContainsKey(connectionId))
-                            mClients.Add(connectionId, userbase);
-                        if (!mFastClients.ContainsKey(user.Uid))
-                            mFastClients.Add(user.Uid, connectionId);
+                        lock (LocObj)
+                        {
+                            CTData<CTUser> s = JsonConvert.DeserializeObject<CTData<CTUser>>(data);
+                            CTUser user = s.Body;
+                            user.ConnectionId = connectionId;
+                            CTAreaPool.getInstance().addUser(user);
+                            CTUserBase userbase = new CTUserBase();
+                            userbase.Sex = user.Sex;
+                            userbase.Uid = user.Uid;
+                            userbase.School = user.School;
+                            if (!mClients.ContainsKey(connectionId))
+                                mClients.Add(connectionId, userbase);
+                            else
+                            {
+                                mClients[connectionId] = userbase;
+                            }
+                            if (!mFastClients.ContainsKey(user.Uid))
+                                mFastClients.Add(user.Uid, connectionId);
+                            else
+                            {
+                                mFastClients[user.Uid] = connectionId;
+                            }
+                        }
                         break;
                     case CTData<Object>.DATATYPE_MESSAGE:
                         CTData<CTMessage> ctmsg = JsonConvert.DeserializeObject<CTData<CTMessage>>(data);

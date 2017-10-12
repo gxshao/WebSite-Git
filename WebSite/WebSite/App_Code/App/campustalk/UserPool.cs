@@ -204,9 +204,14 @@ class TempPool
     {
         lock (LocObj)
         {
-            if (mList != null && !mList.ContainsKey(user.Uid))
+            if (mList != null)
             {
-                mList.Add(user.Uid, user);
+                if(!mList.ContainsKey(user.Uid))
+                    mList.Add(user.Uid, user);
+                else
+                {
+                    mList[user.Uid] = user;//异常掉线更新
+                }
             }
         }
     }

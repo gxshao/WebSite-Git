@@ -102,9 +102,10 @@ public class CTAreaPool
         if (!schoolcode.Equals("") && mPool.ContainsKey(schoolcode))
         {
             mPool[schoolcode].removeUser(uid);
-        }
-        if (mPool[schoolcode].Count<=0) {
-            mPool[schoolcode].StopMatch();
+            //if (mPool[schoolcode].Count <= 0)
+            //{
+            //    mPool[schoolcode].StopMatch();
+            //}
         }
         count--;
     }
