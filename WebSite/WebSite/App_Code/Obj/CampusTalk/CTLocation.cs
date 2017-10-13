@@ -7,12 +7,12 @@ namespace WebSite.App_Code.Obj.CampusTalk
 {
     public class CTLocation
     {
-        decimal longitude;
-        decimal latitude;
+        string longitude;
+        string latitude;
         string uid;
         string datetime;
 
-        public decimal Longitude
+        public string Longitude
         {
             get
             {
@@ -25,7 +25,7 @@ namespace WebSite.App_Code.Obj.CampusTalk
             }
         }
 
-        public decimal Latitude
+        public string Latitude
         {
             get
             {
