@@ -143,8 +143,71 @@ public class ctValidate : IHttpHandler
                 Content.Response.Write(JsonConvert.SerializeObject(logdata));
                 logdata = null;
                 break;
-            case "forgotpass": break;
-            case "changepass": break;
+            case "forgotpass":
+                CTData<bool> f_email = new CTData<bool>();
+                f_email.DataType = CTData<String>.DATATYPE_REPLY;
+                f_email.Body = GlobalVar.FAIL;
+                emailAddress = Content.Request.QueryString["email"];
+                if (emailAddress == null)
+                {
+                    Content.Response.Write(JsonConvert.SerializeObject(f_email));
+                    break;
+                }
+                if (ctEMail.getInstance().sendMail(emailAddress, TempCode.getInstance().getRandomCode()))
+                {
+                    f_email.Body = GlobalVar.SUCCESS;
+                }
+                else
+                {
+                    f_email.Body = GlobalVar.FAIL;
+                }
+
+                Content.Response.Write(JsonConvert.SerializeObject(f_email));
+                break;
+            case "changepass":
+                if (Content.Request.HttpMethod != "POST")
+                    break;
+                CTData<CTPerson> ch_pass = new CTData<CTPerson>();
+                ch_pass.DataType = CTData<CTUser>.DATATYPE_REPLY;
+                ch_pass.Body = new CTPerson();
+                emailAddress = Content.Request.QueryString["email"];
+                string json_pass = Content.Request.QueryString["pass"];
+                if (emailAddress == null || json_pass == null)
+                {
+                    Content.Response.Write(JsonConvert.SerializeObject(json_pass));
+                    break;
+                }
+                else
+                {
+                    CTPerson person = new CTPerson();
+                    ch_pass.Body = person;
+                    string loginsql = "select * from " + GlobalVar.User.TABLE_USER + " where " + GlobalVar.User.EMAIL + "='" + emailAddress + "'";
+                    dt_res = ctSqlHelper.getInstance().Query(loginsql);
+                    if (dt_res != null && dt_res.Rows.Count > 0)  //判断账号是否存在
+                    {
+                        person.Email = dt_res.Rows[0][GlobalVar.User.EMAIL].ToString();
+                        if (dt_res.Rows[0][GlobalVar.User.PASSWORD].ToString().Equals(ch_pass))
+                        { //密码是否正确
+                            person.Uid = dt_res.Rows[0][GlobalVar.User.UID].ToString();
+                            person.Age = dt_res.Rows[0][GlobalVar.User.AGE].ToString();
+                            person.School = new CTSchool();
+                            person.School.SCode = dt_res.Rows[0][GlobalVar.User.SCHOOLCODE].ToString();
+                            DataTable dt = ctSqlHelper.getInstance().Query("select " + GlobalVar.SchoolInfo.SCHOOLNAME + " from " + GlobalVar.SchoolInfo.TABLE_SCHOOLINFO + " where " + GlobalVar.SchoolInfo.SCHOOLCODE + "='" + person.School.SCode + "'");
+                            if (dt.Rows.Count > 0)
+                            {
+                                person.School.SName = dt.Rows[0][0].ToString();
+                            }
+                            person.Headpic = dt_res.Rows[0][GlobalVar.User.HEADPIC].ToString();
+                            person.Sex = dt_res.Rows[0][GlobalVar.User.SEX].ToString();
+                            person.Userexplain = dt_res.Rows[0][GlobalVar.User.USEREXPLAIN].ToString();
+                            person.State = dt_res.Rows[0][GlobalVar.User.STATE].ToString();
+                            person.Nickname = dt_res.Rows[0][GlobalVar.User.NICKNAME].ToString();
+                        }
+                    }
+                }
+                Content.Response.Write(JsonConvert.SerializeObject(ch_pass));
+                ch_pass = null;
+                break;
             case "ckemail":
                 CTData<bool> res_ckemail = new CTData<bool>();
                 res_ckemail.DataType = CTData<String>.DATATYPE_REPLY;
