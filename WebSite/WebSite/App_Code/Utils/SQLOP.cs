@@ -121,7 +121,7 @@ namespace WebSite.App_Code.Utils
                     user.Sex = dt_users.Rows[0][GlobalVar.User.SEX].ToString();
                     user.Nickname = dt_users.Rows[0][GlobalVar.User.NICKNAME].ToString();
                     CTSchool tmp_school = new CTSchool();
-                    tmp_school.SCode = dt_users.Rows[0][GlobalVar.User.UID].ToString();
+                    tmp_school.SCode = dt_users.Rows[0][GlobalVar.User.SCHOOLCODE].ToString();
                     tmp_school.SName = getSchoolNameBySchoolCode(tmp_school.SCode);
                     user.School = tmp_school;
                     user.Email = dt_users.Rows[0][GlobalVar.User.EMAIL].ToString();
@@ -201,22 +201,24 @@ namespace WebSite.App_Code.Utils
         /// <returns></returns>
         public int updateProfile(CTPerson user)
         {
-            if (user==null) {
+            if (user == null)
+            {
                 return 0;
             }
-            string sql = "update " + GlobalVar.User.TABLE_USER + " set " + GlobalVar.User.AGE + "='" + user.Age + "',"+ 
-                                                                            GlobalVar.User.SEX + "='" + user.Sex + "',"+
-                                                                                GlobalVar.User.SCHOOLCODE + "='" + user.School.SCode + "',"+ 
-                                                                                GlobalVar.User.NICKNAME + "='" + user.Nickname + "',"+ 
-                                                                                GlobalVar.User.USEREXPLAIN + "='" + user.Userexplain + "' where " + 
-                                                                                GlobalVar.User.UID+"='"+user.Uid+"'";
+            string sql = "update " + GlobalVar.User.TABLE_USER + " set " + GlobalVar.User.AGE + "='" + user.Age + "'," +
+                                                                            GlobalVar.User.SEX + "='" + user.Sex + "'," +
+                                                                                GlobalVar.User.SCHOOLCODE + "='" + user.School.SCode + "'," +
+                                                                                GlobalVar.User.NICKNAME + "='" + user.Nickname + "'," +
+                                                                                GlobalVar.User.USEREXPLAIN + "='" + user.Userexplain + "' where " +
+                                                                                GlobalVar.User.UID + "='" + user.Uid + "'";
             try
             {
                 return ctSqlHelper.getInstance().executeSql(sql);
             }
-            catch (Exception e) {
+            catch (Exception e)
+            {
                 Console.WriteLine(e.Message);
-            } 
+            }
             return 0;
 
         }
@@ -227,13 +229,15 @@ namespace WebSite.App_Code.Utils
         /// <param name="path"></param>
         /// <param name="uid"></param>
         /// <returns></returns>
-        public int updateStucard(string path,string uid) {
-            string sql = "update "+GlobalVar.User.TABLE_USER+" set "+GlobalVar.User.STUCARD+"='"+path+"',"+GlobalVar.User.STATE+"='"+GlobalVar.USER_STATE_WAITING+"' where "+GlobalVar.User.UID+"='"+uid+"'";
+        public int updateStucard(string path, string uid)
+        {
+            string sql = "update " + GlobalVar.User.TABLE_USER + " set " + GlobalVar.User.STUCARD + "='" + path + "'," + GlobalVar.User.STATE + "='" + GlobalVar.USER_STATE_WAITING + "' where " + GlobalVar.User.UID + "='" + uid + "'";
             try
             {
                 return ctSqlHelper.getInstance().executeSql(sql);
             }
-            catch (Exception e) {
+            catch (Exception e)
+            {
                 Console.WriteLine(e.Message);
             }
             return 0;
@@ -264,22 +268,25 @@ namespace WebSite.App_Code.Utils
         /// <param name="list"></param>
         /// <returns></returns>
 
-        public int AddGpsInfo(List<CTLocation> list) {
+        public int AddGpsInfo(List<CTLocation> list)
+        {
             if (list.Count <= 0)
                 return 0;
 
             try
             {
                 string sql = "insert into " + GlobalVar.Location.TABLE_LOCATION + " (" + GlobalVar.Location.UID + "," + GlobalVar.Location.LATITUDE + "," + GlobalVar.Location.LONGITUDE + "," + GlobalVar.Location.TIME + ") values";
-            for (int i=0;i<list.Count;i++) {
+                for (int i = 0; i < list.Count; i++)
+                {
                     CTLocation loc = list[i];
-                sql += "('" + loc.Uid + "','" + loc.Latitude + "','" + loc.Longitude + "','" + loc.Datetime + "'),";
-            }
-            sql = sql.Substring(0, sql.Length - 1);
-         
+                    sql += "('" + loc.Uid + "','" + loc.Latitude + "','" + loc.Longitude + "','" + loc.Datetime + "'),";
+                }
+                sql = sql.Substring(0, sql.Length - 1);
+
                 return ctSqlHelper.getInstance().executeSql(sql);
             }
-            catch(Exception e) {
+            catch (Exception e)
+            {
                 Console.WriteLine(e.Message);
             }
             return 0;
@@ -296,8 +303,10 @@ namespace WebSite.App_Code.Utils
             ArrayList list = new ArrayList();
             string sql = "select * from " + GlobalVar.AreaInfo.TABLE_AREA;
             DataTable dt_area = ctSqlHelper.getInstance().Query(sql);
-            if (dt_area.Rows.Count>0) {
-                for (int i=0;i<dt_area.Rows.Count;i++) {
+            if (dt_area.Rows.Count > 0)
+            {
+                for (int i = 0; i < dt_area.Rows.Count; i++)
+                {
                     CTArea area = new CTArea();
                     area.Areacode = dt_area.Rows[i][GlobalVar.AreaInfo.AREACODE].ToString();
                     area.Areaname = dt_area.Rows[i][GlobalVar.AreaInfo.AREANAME].ToString();
@@ -316,8 +325,10 @@ namespace WebSite.App_Code.Utils
             ArrayList list = new ArrayList();
             string sql = "select * from " + GlobalVar.SchoolInfo.TABLE_SCHOOLINFO;
             DataTable dt_school = ctSqlHelper.getInstance().Query(sql);
-            if (dt_school.Rows.Count>0) {
-                for (int i=0;i<dt_school.Rows.Count;i++) {
+            if (dt_school.Rows.Count > 0)
+            {
+                for (int i = 0; i < dt_school.Rows.Count; i++)
+                {
                     CTSchool school = new CTSchool();
                     school.Areacode = dt_school.Rows[i][GlobalVar.SchoolInfo.AREACODE].ToString();
                     school.SName = dt_school.Rows[i][GlobalVar.SchoolInfo.SCHOOLNAME].ToString();
@@ -326,6 +337,62 @@ namespace WebSite.App_Code.Utils
                 }
             }
             return list;
+        }
+
+        /// <summary>
+        /// 
+        /// 获取对应时间段内所有坐标
+        /// </summary>
+        /// <param name="uid"></param>
+        /// <param name="startTime"></param>
+        /// <param name="endTime"></param>
+        /// <returns></returns>
+        public List<CTLocation> getLocationByTime(string uid, string startTime, string endTime)
+        {
+            List<CTLocation> list = new List<CTLocation>();
+            string sql = "select * from " + GlobalVar.Location.TABLE_LOCATION + " where " + GlobalVar.Location.TIME + " between '" + startTime + "' and '" + endTime + "' and " + GlobalVar.Location.UID + "='" + uid + "'";
+            DataTable dt_loc = ctSqlHelper.getInstance().Query(sql);
+            if (dt_loc.Rows.Count > 0)
+            {
+                for (int i = 0; i < dt_loc.Rows.Count; i++)
+                {
+                    CTLocation ctloc = new CTLocation();
+                    ctloc.Datetime = dt_loc.Rows[i][GlobalVar.Location.TIME].ToString();
+                    ctloc.Latitude = dt_loc.Rows[i][GlobalVar.Location.LATITUDE].ToString();
+                    ctloc.Longitude = dt_loc.Rows[i][GlobalVar.Location.LONGITUDE].ToString();
+                    list.Add(ctloc);
+                }
+            }
+            return list;
+        }
+        public List<CTLocation> getLcationListByLocate(CTLocation loc)
+        {
+            List<CTLocation> list = new List<CTLocation>();
+            string sql = "select "+GlobalVar.User.SCHOOLCODE+" from " + GlobalVar.User.TABLE_USER + " where " + GlobalVar.User.UID + "='" + loc.Uid + "'";
+            DataTable dt_schoolcode = ctSqlHelper.getInstance().Query(sql);
+            if (dt_schoolcode.Rows.Count>0) {
+                string schoolcode = dt_schoolcode.Rows[0][0].ToString();
+                string sex = loc.Uid.Substring(loc.Uid.Length - 1);
+                sex = sex == GlobalVar.SEX_MALE ? GlobalVar.SEX_FEMALE : GlobalVar.SEX_MALE;
+                DateTime startTime = DateTime.Parse(loc.Datetime).AddSeconds(-30);
+                DateTime endTime = startTime.AddSeconds(60);
+                string sqlUser = "select a.* from "+GlobalVar.Location.TABLE_LOCATION+" a left JOIN "+GlobalVar.User.TABLE_USER+" b on a."+GlobalVar.Location.UID+"=b."+GlobalVar.Location.UID+" where SUBSTRING(a."+GlobalVar.Location.UID+",LEN(a."+GlobalVar.Location.UID+"),1)='"+sex+"' and b."+GlobalVar.User.SCHOOLCODE+"='"+schoolcode+"' and [" +
+                    GlobalVar.Location.TIME+"] BETWEEN '"+startTime.ToString("yyyy-MM-dd hh:mm:ss") +"' and '"+endTime.ToString("yyyy-MM-dd hh:mm:ss") +"'";
+                DataTable dt_list = ctSqlHelper.getInstance().Query(sqlUser);
+                if (dt_list.Rows.Count>0) {
+                    for (int i=0;i< dt_list.Rows.Count;i++) {
+                        CTLocation tmp = new CTLocation();
+                        tmp.Uid = dt_list.Rows[i][GlobalVar.Location.UID].ToString();
+                        tmp.Latitude = dt_list.Rows[i][GlobalVar.Location.LATITUDE].ToString();
+                        tmp.Longitude = dt_list.Rows[i][GlobalVar.Location.LONGITUDE].ToString();
+                        tmp.Datetime = dt_list.Rows[i][GlobalVar.Location.TIME].ToString();
+                        list.Add(tmp);
+                    }
+                }
+
+            }
+            return list;
+
         }
     }
 }

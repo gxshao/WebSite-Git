@@ -31,31 +31,31 @@ public class ctSqlHelper
         int count = 0;
         lock (lock_Obj)
         {
-        SqlTransaction tran = null;
-        SqlCommand sqlcmd = null;
-           
-        if (sc != null)
-        {
-            try
-            {
-                sc.Open();
-                tran = sc.BeginTransaction();
-                sqlcmd = new SqlCommand(sql, sc);
-                sqlcmd.Transaction = tran;
-                    count = sqlcmd.ExecuteNonQuery();
-                tran.Commit();
-            }
-            catch (SqlException e)
-            {
-                if (tran != null)
-                    tran.Rollback();
+            SqlTransaction tran = null;
+            SqlCommand sqlcmd = null;
 
+            if (sc != null)
+            {
+                try
+                {
+                    sc.Open();
+                    tran = sc.BeginTransaction();
+                    sqlcmd = new SqlCommand(sql, sc);
+                    sqlcmd.Transaction = tran;
+                    count = sqlcmd.ExecuteNonQuery();
+                    tran.Commit();
+                }
+                catch (SqlException e)
+                {
+                    if (tran != null)
+                        tran.Rollback();
+
+                    sc.Close();
+                    throw e;
+                }
                 sc.Close();
-                throw e;
+
             }
-            sc.Close();
-          
-        }
         }
         return count;
     }
@@ -65,35 +65,43 @@ public class ctSqlHelper
         DataTable dt = new DataTable();
         lock (lock_Obj)
         {
-        SqlTransaction tran = null;
-        SqlCommand sqlcmd = null;
-          
-        if (sc != null)
-        {
-            try
+            SqlTransaction tran = null;
+            SqlCommand sqlcmd = null;
+            SqlDataReader sr = null;
+            if (sc != null)
             {
+                try
+                {
                     if (sc.State != ConnectionState.Open)
-                    sc.Open();
-                tran = sc.BeginTransaction();
-                sqlcmd = new SqlCommand(sql, sc);
-                sqlcmd.Transaction = tran;
-                SqlDataReader sr = sqlcmd.ExecuteReader();
-                dt.Load(sr);
-                tran.Commit();
-                tran.Dispose();
+                        sc.Open();
+                    tran = sc.BeginTransaction();
+                    sqlcmd = new SqlCommand(sql, sc);
+                    sqlcmd.Transaction = tran;
+                    sr = sqlcmd.ExecuteReader();
 
-            }
-            catch (SqlException e)
-            {
-                Console.WriteLine(e.Message);
-                if (tran != null)
-                    tran.Rollback();
+                    dt.Load(sr);
+                    tran.Commit();
+                    tran.Dispose();
+
+                }
+                catch (SqlException e)
+                {
+                    Console.WriteLine(e.Message);
+                    if(sr!=null)
+                    {
+                        sr.Close();
+                    }
+                    if (tran != null)
+                    {
+
+                        tran.Rollback();
+                    }
+                    sc.Close();
+                    throw e;
+
+                }
                 sc.Close();
-                throw e;
-
             }
-            sc.Close();
-        }
         }
         return dt;
     }
