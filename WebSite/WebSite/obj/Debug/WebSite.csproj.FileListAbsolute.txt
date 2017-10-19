@@ -7,6 +7,7 @@ E:\WorkingSpcae VS\WorkingSpace Web\WebSite\WebSite\WebSite\bin\Newtonsoft.Json.
 E:\WorkingSpcae VS\WorkingSpace Web\WebSite\WebSite\WebSite\obj\Debug\WebSite.dll
 E:\WorkingSpcae VS\WorkingSpace Web\WebSite\WebSite\WebSite\obj\Debug\WebSite.pdb
 E:\WorkingSpcae VS\WorkingSpace Web\WebSite\WebSite\WebSite\obj\Debug\WebSite.csprojResolveAssemblyReference.cache
+E:\WorkingSpcae VS\WorkingSpace Web\WebSite\WebSite Git\WebSite\WebSite\obj\Debug\WebSite.csprojResolveAssemblyReference.cache
 E:\WorkingSpcae VS\WorkingSpace Web\WebSite\WebSite Git\WebSite\WebSite\bin\WebSite.dll.config
 E:\WorkingSpcae VS\WorkingSpace Web\WebSite\WebSite Git\WebSite\WebSite\bin\WebSite.dll
 E:\WorkingSpcae VS\WorkingSpace Web\WebSite\WebSite Git\WebSite\WebSite\bin\WebSite.pdb
@@ -15,4 +16,3 @@ E:\WorkingSpcae VS\WorkingSpace Web\WebSite\WebSite Git\WebSite\WebSite\bin\Newt
 E:\WorkingSpcae VS\WorkingSpace Web\WebSite\WebSite Git\WebSite\WebSite\bin\Newtonsoft.Json.xml
 E:\WorkingSpcae VS\WorkingSpace Web\WebSite\WebSite Git\WebSite\WebSite\obj\Debug\WebSite.dll
 E:\WorkingSpcae VS\WorkingSpace Web\WebSite\WebSite Git\WebSite\WebSite\obj\Debug\WebSite.pdb
-E:\WorkingSpcae VS\WorkingSpace Web\WebSite\WebSite Git\WebSite\WebSite\obj\Debug\WebSite.csprojResolveAssemblyReference.cache
