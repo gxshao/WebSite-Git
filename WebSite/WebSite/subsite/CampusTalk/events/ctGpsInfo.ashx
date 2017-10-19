@@ -3,6 +3,7 @@
 using System;
 using System.Web;
 using System.Collections;
+using System.Collections.Generic;
 using Newtonsoft.Json;
 using WebSite.App_Code.Obj.CampusTalk;
 using WebSite.App_Code.Utils;
@@ -25,13 +26,14 @@ public class ctGpsInfo : IHttpHandler
         }
         CTData<bool> res_gps = new CTData<bool>();
         res_gps.DataType = CTData<bool>.DATATYPE_REPLY;
+        res_gps.Body = false;
         string json_location = context.Request.QueryString["gps"];
-        if (json_location!=null)
+        if (json_location==null)
         {
             context.Response.Write(JsonConvert.SerializeObject(res_gps));
             return;
         }
-        ArrayList list = JsonConvert.DeserializeObject<ArrayList>(json_location);
+        List<CTLocation> list = JsonConvert.DeserializeObject<List<CTLocation>>(json_location);
 
         res_gps.Body = SQLOP.getInstance().AddGpsInfo(list) > 0;
         context.Response.Write(JsonConvert.SerializeObject(res_gps));

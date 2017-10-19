@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Data;
@@ -263,21 +264,23 @@ namespace WebSite.App_Code.Utils
         /// <param name="list"></param>
         /// <returns></returns>
 
-        public int AddGpsInfo(ArrayList list) {
+        public int AddGpsInfo(List<CTLocation> list) {
             if (list.Count <= 0)
                 return 0;
-            string sql = "insert into " + GlobalVar.Location.TABLE_LOCATION + " (" + GlobalVar.Location.UID + "," + GlobalVar.Location.LATITUDE + "," + GlobalVar.Location.LONGITUDE + "," + GlobalVar.Location.TIME + ") values";
+
+            try
+            {
+                string sql = "insert into " + GlobalVar.Location.TABLE_LOCATION + " (" + GlobalVar.Location.UID + "," + GlobalVar.Location.LATITUDE + "," + GlobalVar.Location.LONGITUDE + "," + GlobalVar.Location.TIME + ") values";
             for (int i=0;i<list.Count;i++) {
-                CTLocation loc = (CTLocation)list[i];
+                    CTLocation loc = list[i];
                 sql += "('" + loc.Uid + "','" + loc.Latitude + "','" + loc.Longitude + "','" + loc.Datetime + "'),";
             }
             sql = sql.Substring(0, sql.Length - 1);
-            try
-            {
+         
                 return ctSqlHelper.getInstance().executeSql(sql);
             }
-            catch {
-
+            catch(Exception e) {
+                Console.WriteLine(e.Message);
             }
             return 0;
 

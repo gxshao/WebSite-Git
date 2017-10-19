@@ -13,6 +13,7 @@ public class ctSqlHelper
     SqlConnection sc;
     string conn = System.Web.Configuration.WebConfigurationManager.ConnectionStrings["ConnCampusTalk"].ToString();
     static ctSqlHelper mHelper = null;
+    object lock_Obj = new object();
     public ctSqlHelper()
     {
         sc = new SqlConnection(conn);
@@ -27,9 +28,12 @@ public class ctSqlHelper
     }
     public int executeSql(string sql)
     {
+        int count = 0;
+        lock (lock_Obj)
+        {
         SqlTransaction tran = null;
         SqlCommand sqlcmd = null;
-        int count = 0;
+           
         if (sc != null)
         {
             try
@@ -38,7 +42,7 @@ public class ctSqlHelper
                 tran = sc.BeginTransaction();
                 sqlcmd = new SqlCommand(sql, sc);
                 sqlcmd.Transaction = tran;
-                 count=sqlcmd.ExecuteNonQuery();
+                    count = sqlcmd.ExecuteNonQuery();
                 tran.Commit();
             }
             catch (SqlException e)
@@ -52,19 +56,23 @@ public class ctSqlHelper
             sc.Close();
           
         }
+        }
         return count;
     }
     #region 查询
     public DataTable Query(string sql)
     {
+        DataTable dt = new DataTable();
+        lock (lock_Obj)
+        {
         SqlTransaction tran = null;
         SqlCommand sqlcmd = null;
-        DataTable dt = new DataTable();
+          
         if (sc != null)
         {
             try
             {
-                if(sc.State!= ConnectionState.Open)
+                    if (sc.State != ConnectionState.Open)
                     sc.Open();
                 tran = sc.BeginTransaction();
                 sqlcmd = new SqlCommand(sql, sc);
@@ -85,6 +93,7 @@ public class ctSqlHelper
 
             }
             sc.Close();
+        }
         }
         return dt;
     }

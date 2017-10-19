@@ -126,7 +126,7 @@ public class ctUserPool
             CTUser user = mPool[ctUtils.getSexbyUid(uid)].MoveUser(tmp, to, uid);
 
             //解决聊天室 单向关闭
-            if (user != null)
+            if (user != null&&to== GlobalVar.STATE_NONE)
             {
                 lock (LocObj)
                 {
@@ -206,9 +206,14 @@ class TempPool
     {
         lock (LocObj)
         {
-            if (mList != null && !mList.ContainsKey(user.Uid))
+            if (mList != null)
             {
-                mList.Add(user.Uid, user);
+                if(!mList.ContainsKey(user.Uid))
+                    mList.Add(user.Uid, user);
+                else
+                {
+                    mList[user.Uid] = user;//异常掉线更新
+                }
             }
         }
     }
@@ -253,19 +258,24 @@ class TempPool
                         tmpUser.State = GlobalVar.STATE_NONE + "";
                         if (!mList.ContainsKey(uid))  //不包含则添加进去
                             mList.Add(tmpUser.Uid, tmpUser);
+                        else
+                            mList[tmpUser.Uid] = tmpUser;
 
                         break;
                     case GlobalVar.STATE_PENDING:
                         tmpUser.State = GlobalVar.STATE_PENDING + "";
                         if (!mPending.ContainsKey(tmpUser.Uid))
                             mPending.Add(tmpUser.Uid, tmpUser);
-
+                        else
+                            mPending[tmpUser.Uid] = tmpUser;
                         break;
                     case GlobalVar.STATE_BUSY:
                         if (!tmpUser.Chatid.Equals(""))
                             tmpUser.State = GlobalVar.STATE_BUSY + "";
                         if (!mBusy.ContainsKey(tmpUser.Uid))
                             mBusy.Add(tmpUser.Uid, tmpUser);
+                        else
+                            mPending[tmpUser.Uid] = tmpUser;
                         break;
                 }
                 tmpList.Remove(uid);
