@@ -183,7 +183,7 @@ namespace WebSite.App_Code.Utils
         /// <returns></returns>
         public int AddSign(string uid)
         {
-            string sql = "insert into " + GlobalVar.Sign.TABLE_SIGN + " (" + GlobalVar.Sign.UID + "," + GlobalVar.Sign.TIME + ") values('" + uid + "','" + DateTime.Now.Day + "')";
+            string sql = "insert into " + GlobalVar.Sign.TABLE_SIGN + " (" + GlobalVar.Sign.UID + "," + GlobalVar.Sign.TIME + ") values('" + uid + "','" + DateTime.Now.ToString("yyyy-MM-dd") + "')";
             try
             {
                 return ctSqlHelper.getInstance().executeSql(sql);
