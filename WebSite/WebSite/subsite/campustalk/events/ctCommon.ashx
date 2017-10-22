@@ -98,6 +98,32 @@ public class ctCommon : IHttpHandler
                 res_sign.Body = SQLOP.getInstance().AddSign(uid) > 0;
                 Content.Response.Write(JsonConvert.SerializeObject(res_sign));
                 break;
+          case "CheckSign":
+                //业务加金币
+                CTData<bool> res_checksign = new CTData<bool>();
+                res_checksign.Body = GlobalVar.FAIL;
+                res_checksign.DataType = CTData<bool>.DATATYPE_REPLY;
+                if (uid==null)
+                {
+                    Content.Response.Write(JsonConvert.SerializeObject(res_checksign));
+                    break;
+                }
+                res_checksign.Body = !(SQLOP.getInstance().AddSign(uid) > 0);
+                Content.Response.Write(JsonConvert.SerializeObject(res_checksign));
+                break;
+            case "getUserProperty":
+                //业务加金币
+                CTData<string> res_property = new CTData<string>();
+                res_property.Body = "";
+                res_property.DataType = CTData<bool>.DATATYPE_REPLY;
+                if (uid==null)
+                {
+                    Content.Response.Write(JsonConvert.SerializeObject(res_property));
+                    break;
+                }
+                res_property.Body = SQLOP.getInstance().getProperty(uid);
+                Content.Response.Write(JsonConvert.SerializeObject(res_property));
+                break;
             case "updateprofile":
                 CTData<bool> res_pro = new CTData<bool>();
                 res_pro.Body = GlobalVar.FAIL;

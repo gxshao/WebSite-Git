@@ -58,7 +58,7 @@ public class ctSearch : IHttpHandler
             {
                 CTData<List<CTPerson>> ctdata = new CTData<List<CTPerson>>();
                 ctdata.DataType = CTData<List<CTPerson>>.DATATYPE_REPLY;
-                string location = context.Request.QueryString["location"];
+                string location = context.Request.QueryString["selectloc"];
                 if (location != null && !location.Equals(""))
                 {
                     CTLocation loc = JsonConvert.DeserializeObject<CTLocation>(location);

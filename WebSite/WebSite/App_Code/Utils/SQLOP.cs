@@ -368,19 +368,22 @@ namespace WebSite.App_Code.Utils
         public List<CTLocation> getLcationListByLocate(CTLocation loc)
         {
             List<CTLocation> list = new List<CTLocation>();
-            string sql = "select "+GlobalVar.User.SCHOOLCODE+" from " + GlobalVar.User.TABLE_USER + " where " + GlobalVar.User.UID + "='" + loc.Uid + "'";
+            string sql = "select " + GlobalVar.User.SCHOOLCODE + " from " + GlobalVar.User.TABLE_USER + " where " + GlobalVar.User.UID + "='" + loc.Uid + "'";
             DataTable dt_schoolcode = ctSqlHelper.getInstance().Query(sql);
-            if (dt_schoolcode.Rows.Count>0) {
+            if (dt_schoolcode.Rows.Count > 0)
+            {
                 string schoolcode = dt_schoolcode.Rows[0][0].ToString();
                 string sex = loc.Uid.Substring(loc.Uid.Length - 1);
                 sex = sex == GlobalVar.SEX_MALE ? GlobalVar.SEX_FEMALE : GlobalVar.SEX_MALE;
                 DateTime startTime = DateTime.Parse(loc.Datetime).AddSeconds(-30);
                 DateTime endTime = startTime.AddSeconds(60);
-                string sqlUser = "select a.* from "+GlobalVar.Location.TABLE_LOCATION+" a left JOIN "+GlobalVar.User.TABLE_USER+" b on a."+GlobalVar.Location.UID+"=b."+GlobalVar.Location.UID+" where SUBSTRING(a."+GlobalVar.Location.UID+",LEN(a."+GlobalVar.Location.UID+"),1)='"+sex+"' and b."+GlobalVar.User.SCHOOLCODE+"='"+schoolcode+"' and [" +
-                    GlobalVar.Location.TIME+"] BETWEEN '"+startTime.ToString("yyyy-MM-dd hh:mm:ss") +"' and '"+endTime.ToString("yyyy-MM-dd hh:mm:ss") +"'";
+                string sqlUser = "select a.* from " + GlobalVar.Location.TABLE_LOCATION + " a left JOIN " + GlobalVar.User.TABLE_USER + " b on a." + GlobalVar.Location.UID + "=b." + GlobalVar.Location.UID + " where SUBSTRING(a." + GlobalVar.Location.UID + ",LEN(a." + GlobalVar.Location.UID + "),1)='" + sex + "' and b." + GlobalVar.User.SCHOOLCODE + "='" + schoolcode + "' and [" +
+                    GlobalVar.Location.TIME + "] BETWEEN '" + startTime.ToString("yyyy-MM-dd hh:mm:ss") + "' and '" + endTime.ToString("yyyy-MM-dd hh:mm:ss") + "'";
                 DataTable dt_list = ctSqlHelper.getInstance().Query(sqlUser);
-                if (dt_list.Rows.Count>0) {
-                    for (int i=0;i< dt_list.Rows.Count;i++) {
+                if (dt_list.Rows.Count > 0)
+                {
+                    for (int i = 0; i < dt_list.Rows.Count; i++)
+                    {
                         CTLocation tmp = new CTLocation();
                         tmp.Uid = dt_list.Rows[i][GlobalVar.Location.UID].ToString();
                         tmp.Latitude = dt_list.Rows[i][GlobalVar.Location.LATITUDE].ToString();
@@ -393,6 +396,16 @@ namespace WebSite.App_Code.Utils
             }
             return list;
 
+        }
+        public string getProperty(string uid)
+        {
+            string result = "";
+            string sql = "select "+GlobalVar.Goods.MONEY+" from " + GlobalVar.Goods.TABLE_GOODS + " where " + GlobalVar.Goods.UID + "='" + uid + "'";
+            DataTable dt_res = ctSqlHelper.getInstance().Query(sql);
+            if (dt_res.Rows.Count>0) {
+                result = dt_res.Rows[0][0].ToString();
+            }
+            return result;
         }
     }
 }
