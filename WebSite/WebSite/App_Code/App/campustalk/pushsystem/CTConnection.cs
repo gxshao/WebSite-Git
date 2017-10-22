@@ -25,7 +25,8 @@ public class CTConnection : PersistentConnection
         /***********************2017-09-08  邵国鑫***/
         //1.转发消息到对应id
         //2.连接信息 添加新用户
-
+        lock (LocObj)
+        {
         try
         {
             CTData<Object> d = new CTData<Object>();
@@ -38,22 +39,22 @@ public class CTConnection : PersistentConnection
                     case CTData<Object>.DATATYPE_CONNECTED:
                         lock (LocObj)
                         {
-                            CTData<CTUser> s = JsonConvert.DeserializeObject<CTData<CTUser>>(data);
-                            CTUser user = s.Body;
-                            user.ConnectionId = connectionId;
-                            CTAreaPool.getInstance().addUser(user);
-                            CTUserBase userbase = new CTUserBase();
-                            userbase.Sex = user.Sex;
-                            userbase.Uid = user.Uid;
-                            userbase.School = user.School;
-                            if (!mClients.ContainsKey(connectionId))
-                                mClients.Add(connectionId, userbase);
+                        CTData<CTUser> s = JsonConvert.DeserializeObject<CTData<CTUser>>(data);
+                        CTUser user = s.Body;
+                        user.ConnectionId = connectionId;
+                        CTAreaPool.getInstance().addUser(user);
+                        CTUserBase userbase = new CTUserBase();
+                        userbase.Sex = user.Sex;
+                        userbase.Uid = user.Uid;
+                        userbase.School = user.School;
+                        if (!mClients.ContainsKey(connectionId))
+                            mClients.Add(connectionId, userbase);
                             else
                             {
                                 mClients[connectionId] = userbase;
                             }
-                            if (!mFastClients.ContainsKey(user.Uid))
-                                mFastClients.Add(user.Uid, connectionId);
+                        if (!mFastClients.ContainsKey(user.Uid))
+                            mFastClients.Add(user.Uid, connectionId);
                             else
                             {
                                 mFastClients[user.Uid] = connectionId;
@@ -89,7 +90,7 @@ public class CTConnection : PersistentConnection
         {
             string x = e.Message;
         }
-
+        }
         return base.OnReceived(request, connectionId, data);
     }
     protected override bool AuthorizeRequest(IRequest request)

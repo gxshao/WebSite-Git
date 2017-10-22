@@ -91,7 +91,9 @@ public class ctUserPool
                 }
                 catch
                 {
-
+                    
+                    mMatchThread = new Thread(Matching);
+                    mMatchThread.Start();
                 }
             }
             if (mPool[GlobalVar.SEX_MALE].isPendingEmpty() || mPool[GlobalVar.SEX_FEMALE].isPendingEmpty())

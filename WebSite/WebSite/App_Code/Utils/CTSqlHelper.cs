@@ -33,7 +33,7 @@ public class ctSqlHelper
         {
             SqlTransaction tran = null;
             SqlCommand sqlcmd = null;
-           
+
             if (sc != null)
             {
                 try
@@ -51,6 +51,7 @@ public class ctSqlHelper
                         tran.Rollback();
 
                     sc.Close();
+                    throw e;
                 }
                 sc.Close();
 
@@ -66,7 +67,7 @@ public class ctSqlHelper
         {
             SqlTransaction tran = null;
             SqlCommand sqlcmd = null;
-          
+            SqlDataReader sr = null;
             if (sc != null)
             {
                 try
@@ -76,7 +77,8 @@ public class ctSqlHelper
                     tran = sc.BeginTransaction();
                     sqlcmd = new SqlCommand(sql, sc);
                     sqlcmd.Transaction = tran;
-                    SqlDataReader sr = sqlcmd.ExecuteReader();
+                    sr = sqlcmd.ExecuteReader();
+
                     dt.Load(sr);
                     tran.Commit();
                     tran.Dispose();
@@ -85,9 +87,17 @@ public class ctSqlHelper
                 catch (SqlException e)
                 {
                     Console.WriteLine(e.Message);
+                    if(sr!=null)
+                    {
+                        sr.Close();
+                    }
                     if (tran != null)
+                    {
+
                         tran.Rollback();
+                    }
                     sc.Close();
+                    throw e;
 
                 }
                 sc.Close();
