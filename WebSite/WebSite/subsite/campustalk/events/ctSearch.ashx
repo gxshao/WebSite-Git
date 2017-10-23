@@ -58,7 +58,7 @@ public class ctSearch : IHttpHandler
             {
                 CTData<List<CTPerson>> ctdata = new CTData<List<CTPerson>>();
                 ctdata.DataType = CTData<List<CTPerson>>.DATATYPE_REPLY;
-                string location = context.Request.QueryString["location"];
+                string location = context.Request.QueryString["selectloc"];
                 if (location != null && !location.Equals(""))
                 {
                     CTLocation loc = JsonConvert.DeserializeObject<CTLocation>(location);
@@ -71,7 +71,7 @@ public class ctSearch : IHttpHandler
                     {
                         Degree myloc = new Degree(Double.Parse(loc.Latitude), Double.Parse(loc.Longitude));
                         List<CTPerson> res_person = new List<CTPerson>();
-                        List<CTLocation> locdata = SQLOP.getInstance().getLcationListByLocate(loc);
+                        List<CTLocation> locdata = SQLOP.getInstance().getLocationListByLocate(loc);
                         List<CTLocation> newData = new List<CTLocation>();
                         //过滤经纬度坐标
                         foreach (CTLocation tmp in locdata)
