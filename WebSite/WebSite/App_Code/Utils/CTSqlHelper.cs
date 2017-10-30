@@ -11,7 +11,7 @@ using System.Web;
 public class ctSqlHelper
 {
     SqlConnection sc;
-    string conn = System.Web.Configuration.WebConfigurationManager.ConnectionStrings["ConnCampusTalk"].ToString();
+    string conn = System.Web.Configuration.WebConfigurationManager.ConnectionStrings["ConnString"].ToString();
     static ctSqlHelper mHelper = null;
     object lock_Obj = new object();
     public ctSqlHelper()
