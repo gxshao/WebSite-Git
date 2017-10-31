@@ -5,10 +5,13 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-public partial class subsite_campustalk_Login : System.Web.UI.Page
+namespace WebSite.subsite.CampusTalk.pages
 {
-    protected void Page_Load(object sender, EventArgs e)
+    public partial class Login : System.Web.UI.Page
     {
+        protected void Page_Load(object sender, EventArgs e)
+        {
 
+        }
     }
 }
