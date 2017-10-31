@@ -30,7 +30,7 @@ function loadarea() {
     text = "key=GetAllArea";
     $.ajax({
         type: "POST",
-        url: "../subsite/Graduate/GraduateInfo.ashx", data: text, success: function (data) {
+        url: "../Graduate/GraduateInfo.ashx", data: text, success: function (data) {
 
             if (data == null)
             {
