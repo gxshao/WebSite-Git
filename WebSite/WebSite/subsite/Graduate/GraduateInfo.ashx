@@ -33,8 +33,14 @@ public class GraduateInfo : IHttpHandler
         JavaScriptSerializer jss = new JavaScriptSerializer();
         if (sc == null)
         {
-            sc = new SqlConnection(conn);
-            sc.Open();
+            try
+            {
+                sc = new SqlConnection(conn);
+                sc.Open();
+            }
+            catch {
+
+            }
         }
         switch (key)
         {
@@ -107,7 +113,7 @@ public class GraduateInfo : IHttpHandler
                 string lastsql = "";
                 if (mdeg != "all")
                 {
-                   lastsql=" and d.Degree='" + mdeg + "'";
+                    lastsql=" and d.Degree='" + mdeg + "'";
                 }
                 string sql = "select a.Politics,a.language,a.procourseA,a.procourseB,a.years,a.summary,c.MajorCode,c.MajorName,c.Directions,e.number,d.CollectiveName from Scores a left join SchoolInfo b on a.SchoolCode=b.SchoolCode left join Major c on a.CollectiveCode=c.CollectiveCode left join Categroy d on a.CollectiveCode=d.CollectiveCode left join RecruitNum e on c.majorcode=e.majorcode  where c.SchoolCode='" + value + "' and a.years='" + mTime + "' and a.SchoolCode='"+value+"'" + lastsql;
                 DataTable dtscores = Query(sql);

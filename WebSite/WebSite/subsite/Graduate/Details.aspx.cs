@@ -5,10 +5,13 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-public partial class Graduate_Details : System.Web.UI.Page
+namespace WebSite.subsite.Graduate
 {
-    protected void Page_Load(object sender, EventArgs e)
+    public partial class Details : System.Web.UI.Page
     {
-       
+        protected void Page_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }
