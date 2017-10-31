@@ -88,7 +88,7 @@ function Login() {
         } else {
             hideopacity(smalllgoin);
             var move = function () {
-                $(LoginTips).text("Loding..");
+                $(LoginTips).text("Loading..");
                 moveelem(txt, 2, 120, 50);
             }
             setTimeout(move, 400);
