@@ -2,7 +2,7 @@
 
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-cn">
+<htm>
 <head runat="server">
     <link href="css/div/div_panel.css" rel="stylesheet" />
     <link href="css/btn/btn.css" rel="stylesheet" />
@@ -21,13 +21,13 @@
             }
         }
         function hideContentLayer() {
-              var lay = document.getElementById("content_layer");
-              lay.hidden = true;
-              lay.style.opacity = 0;
-              if (CurBtn != null) {
-                  CurBtn.style.backgroundColor = "transparent";
-                  CurBtn = null;
-              }
+            var lay = document.getElementById("content_layer");
+            lay.hidden = true;
+            lay.style.opacity = 0;
+            if (CurBtn != null) {
+                CurBtn.style.backgroundColor = "transparent";
+                CurBtn = null;
+            }
         }
         function Btn_Event(id) {
 
@@ -81,8 +81,8 @@
                 default: break;
             }
             var lay = document.getElementById("content_layer");
-            if(lay.hidden==true)
-            layopacity(lay);
+            if (lay.hidden == true)
+                layopacity(lay);
             id.style.backgroundColor = "deepskyblue";
             CurBtn = id;
         }
@@ -103,18 +103,24 @@
     </script>
 </head>
 <body class="bodycss">
-    <form id="form1" runat="server" style="position: absolute;width:100%">
+    <div style="z-index:-1;position:absolute;width:100%;height:100%">
+        <video autoplay="" loop="" id="video" style="width: 100% ;height: auto; top:-100px; left:0px;right:0px">
+            <source src="file/chu.mp4" type="video/mp4">
+        </video>
+    </div>
+    <form id="form1" runat="server">
+
         <div class="div-content">
-            <a class="btn-sky" style="width: 300px;float:right" href="javascript:void(0);" runat="server" id="Btn_Login" onclick="Btn_Event(this);">登录</a>
-            <a class="btn-sky" style="width: 300px;float:right;" href="javascript:void(0);" id="Btn_SignInfo" onclick="Btn_Event(this);">签到</a>
-            <a class="btn-sky" style="width: 300px;float:right;" href="javascript:void(0);" id="Btn_GetInfo" onclick="Btn_Event(this);">信息入口</a>
-            <a class="btn-sky" style="width: 300px;float:right;" href="javascript:void(0);" id="Btn_About" onclick="Btn_Event(this);">关于</a>
+            <a class="btn-sky" style="min-width: 150px; float: right" href="javascript:void(0);" runat="server" id="Btn_Login" onclick="Btn_Event(this);">登录</a>
+            <a class="btn-sky" style="min-width: 150px; float: right;" href="javascript:void(0);" id="Btn_SignInfo" onclick="Btn_Event(this);">签到</a>
+            <a class="btn-sky" style="min-width: 150px; float: right;" href="javascript:void(0);" id="Btn_GetInfo" onclick="Btn_Event(this);">信息入口</a>
+            <a class="btn-sky" style="min-width: 150px; float: right;" href="javascript:void(0);" id="Btn_About" onclick="Btn_Event(this);">关于</a>
         </div>
-        <div id="content_layer" class="div-layer" style="margin-left: 400px; margin-top: 200px; width: 1000px; height: 600px; opacity: 0;"
+        <div id="content_layer" class="div-layer" style="max-height:500px;max-width:800px; width: auto; height: auto; opacity: 0;"
             hidden="hidden">
             <div id="btn_close" class="btn-close" onclick="hideContentLayer();" href="#">x</div>
             <div class="div-LoginParent">
-                <div id="login_layer" hidden="hidden" class="div-login">
+                <div id="login_layer" hidden="hidden" style="position:relative;display:inline-block;width:100%;height:100%">
 
                     <span class="txt-tips" id="Txt_tips"></span>
                     <div class="div-smalllogin" id="smalllgoin">
@@ -142,7 +148,8 @@
                         <li></li>
                     </ul>
                 </div>
-                <div id="Main_Layer" runat="server" hidden="hidden" class="div-MainLayer"> Parper Airplanes-The Candle Thieves<embed src="../air.mp3" hidden="true" autostart="true" loop="false"/> <a class="btn-submit" onclick="Exit();">注销</a></div>
+                <div id="Main_Layer" runat="server" hidden="hidden" class="div-MainLayer">Parper Airplanes-The Candle Thieves<embed src="../air.mp3" hidden="true" autostart="true" loop="false" />
+                    <a class="btn-submit" onclick="Exit();">注销</a></div>
             </div>
 
             <div id="signinfo_layer" class="div-subcontent" hidden="hidden">
@@ -152,10 +159,12 @@
             </div>
 
 
-            <div id="link_layer" class="div-linklayer"><a href="../subsite/Graduate/Main.aspx" style="text-decoration:none;">进入研究生考试信息通道>></a></br>
+            <div id="link_layer" class="div-linklayer">
+                <a href="../subsite/Graduate/Main.aspx" style="text-decoration: none;">进入研究生考试信息通道>></a></br>
 
-                <hr style="width:70%" />
-                <h4>温馨提示:</h4><a>本系统提供2015年部分院校的成绩查询</a></br>
+                <hr style="width: 70%" />
+                <h4>温馨提示:</h4>
+                <a>本系统提供2015年部分院校的成绩查询</a></br>
                 <a>系统数据来源于网络</a>
             </div>
             <div id="about_layer" class="div-about" hidden="hidden">
@@ -173,4 +182,4 @@
     </form>
     <div class="div-bottom"></div>
 </body>
-</html>
+</htm>
