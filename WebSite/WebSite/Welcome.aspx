@@ -1,16 +1,24 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Welcome.aspx.cs" Inherits="WebSite.Welcome" %>
 
 <!DOCTYPE html>
-
-<htm>
+<html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <link href="css/div/div_panel.css" rel="stylesheet" />
     <link href="css/btn/btn.css" rel="stylesheet" />
     <link href="css/txt/txt.css" rel="stylesheet" />
     <script src="js/jquery-3.1.0.min.js"></script>
     <script src="js/page.js"></script>
+    <meta name="viewport"
+        content="width=device-width,minimum-scale=1.0,maximum-scale=1.0" />
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=yes" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>Courage and intelligence</title>
+    <style>
+        .body {
+        }
+    </style>
     <script type="text/javascript">
         var CurBtn;
         var isExit = false
@@ -18,6 +26,19 @@
             if (CurBtn != null) {
                 CurBtn.style.backgroundColor = "transparent";
                 CurBtn = null;
+            }
+        }
+        if (/AppleWebKit.*Mobile/i.test(navigator.userAgent) || (/MIDP|SymbianOS|NOKIA|SAMSUNG|LG|NEC|TCL|Alcatel|BIRD|DBTEL|Dopod|PHILIPS|HAIER|LENOVO|MOT-|Nokia|SonyEricsson|SIE-|Amoi|ZTE/.test(navigator.userAgent))) {
+            if (window.location.href.indexOf("?mobile") < 0) {
+                try {
+                    if (/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent)) {
+                        window.location.href = "http://mrsgx.cn/others/news.aspx";
+                    } else if (/iPad/i.test(navigator.userAgent)) {
+                        window.location.href = "http://mrsgx.cn/others/news.aspx";
+                    } else {
+                        window.location.href = "http://mrsgx.cn"
+                    }
+                } catch (e) { }
             }
         }
         function hideContentLayer() {
@@ -102,13 +123,14 @@
 
     </script>
 </head>
-<body class="bodycss">
-    <div style="z-index:-1;position:absolute;width:100%;height:100%">
-        <video autoplay="" loop="" id="video" style="width: 100% ;height: auto; top:-100px; left:0px;right:0px">
+<body class="body">
+    <div style="z-index: -50; position: absolute; width: 100%; height: 90%;"></div>
+    <div style="z-index: -100; position: absolute; width: 100%; height: 90%">
+        <video autoplay="" loop="" id="video" style="width: auto; height: auto; top: -100px; left: 0px; right: 0px">
             <source src="file/chu.mp4" type="video/mp4">
         </video>
     </div>
-    <form id="form1" runat="server">
+    <form style="z-index: 200;" id="form1" runat="server">
 
         <div class="div-content">
             <a class="btn-sky" style="min-width: 150px; float: right" href="javascript:void(0);" runat="server" id="Btn_Login" onclick="Btn_Event(this);">登录</a>
@@ -116,11 +138,11 @@
             <a class="btn-sky" style="min-width: 150px; float: right;" href="javascript:void(0);" id="Btn_GetInfo" onclick="Btn_Event(this);">信息入口</a>
             <a class="btn-sky" style="min-width: 150px; float: right;" href="javascript:void(0);" id="Btn_About" onclick="Btn_Event(this);">关于</a>
         </div>
-        <div id="content_layer" class="div-layer" style="max-height:500px;max-width:800px; width: auto; height: auto; opacity: 0;"
+        <div id="content_layer" class="div-layer" style="max-height: 500px; max-width: 800px; width: auto; height: auto; opacity: 0;"
             hidden="hidden">
             <div id="btn_close" class="btn-close" onclick="hideContentLayer();" href="#">x</div>
             <div class="div-LoginParent">
-                <div id="login_layer" hidden="hidden" style="position:relative;display:inline-block;width:100%;height:100%">
+                <div id="login_layer" hidden="hidden" style="position: relative; display: inline-block; width: 100%; height: 100%">
 
                     <span class="txt-tips" id="Txt_tips"></span>
                     <div class="div-smalllogin" id="smalllgoin">
@@ -148,8 +170,10 @@
                         <li></li>
                     </ul>
                 </div>
-                <div id="Main_Layer" runat="server" hidden="hidden" class="div-MainLayer">Parper Airplanes-The Candle Thieves<embed src="../air.mp3" hidden="true" autostart="true" loop="false" />
-                    <a class="btn-submit" onclick="Exit();">注销</a></div>
+                <div id="Main_Layer" runat="server" hidden="hidden" class="div-MainLayer">
+                    Parper Airplanes-The Candle Thieves<embed src="../air.mp3" hidden="true" autostart="true" loop="false" />
+                    <a class="btn-submit" onclick="Exit();">注销</a>
+                </div>
             </div>
 
             <div id="signinfo_layer" class="div-subcontent" hidden="hidden">
@@ -180,6 +204,5 @@
         </div>
 
     </form>
-    <div class="div-bottom"></div>
 </body>
-</htm>
+</html>
