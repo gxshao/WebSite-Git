@@ -17,7 +17,7 @@
 <body>
     <form id="form1" runat="server">
         <div id="leftpanel" class="divLeftPanel">
-            <div class="LeftPanel-Top"><a class="txt-tips" style="float: left; margin-top: 10px">选择地区>></a><input type="button" class="btn-submit" style="position: relative;" value="隐藏" /></div>
+            <div class="LeftPanel-Top"><input type="button" class="btn-submit" style="position: relative;" value="隐藏" /></div>
             <div class="LeftPanel-Bottom" dir="rtl" id="SchoolContent">
             </div>
             <a class="smalldir">...</a><br />

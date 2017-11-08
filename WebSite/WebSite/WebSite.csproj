@@ -32,6 +32,7 @@
     <WarningLevel>0</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
     <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <FilesToIncludeForPublish>AllFilesInProjectFolder</FilesToIncludeForPublish>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -43,43 +44,46 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="aliyun-net-sdk-core">
+    <Reference Include="aliyun-net-sdk-core, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\aliyun-net-sdk-core.dll</HintPath>
     </Reference>
-    <Reference Include="aliyun-net-sdk-dm">
+    <Reference Include="aliyun-net-sdk-dm, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\aliyun-net-sdk-dm.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.AspNet.SignalR.Core, Version=2.2.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Microsoft.AspNet.SignalR.Core.2.2.2\lib\net45\Microsoft.AspNet.SignalR.Core.dll</HintPath>
+      <HintPath>bin\Microsoft.AspNet.SignalR.Core.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.AspNet.SignalR.SystemWeb, Version=2.2.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Microsoft.AspNet.SignalR.SystemWeb.2.2.2\lib\net45\Microsoft.AspNet.SignalR.SystemWeb.dll</HintPath>
+      <HintPath>bin\Microsoft.AspNet.SignalR.SystemWeb.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="Microsoft.Owin, Version=3.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+    <Reference Include="Microsoft.Owin, Version=2.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Microsoft.Owin.3.1.0\lib\net45\Microsoft.Owin.dll</HintPath>
-      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Host.SystemWeb, Version=2.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Microsoft.Owin.Host.SystemWeb.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Owin.Security, Version=2.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>bin\Microsoft.Owin.Security.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
-      <Private>True</Private>
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Microsoft.Web.Infrastructure.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net40\Newtonsoft.Json.dll</HintPath>
-      <Private>True</Private>
+      <HintPath>bin\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="Owin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f0ebd12fd5e55cc5, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
-      <Private>True</Private>
+      <HintPath>bin\Owin.dll</HintPath>
     </Reference>
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Data.Linq" />
@@ -92,11 +96,19 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Workflow.Activities" />
+    <Reference Include="System.Workflow.ComponentModel" />
+    <Reference Include="System.Workflow.Runtime" />
+    <Reference Include="System.WorkflowServices" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Web.Services" />
     <Reference Include="System.EnterpriseServices" />
     <Reference Include="System.Xml.Linq" />
+    <Reference Include="Tools, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Tools.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="bin\aliyun-net-sdk-core.dll" />
@@ -118,10 +130,13 @@
     <Content Include="css\div\dragdiv.css" />
     <Content Include="css\div\LoadPage.css" />
     <None Include="Scripts\jquery-3.2.1.intellisense.js" />
+    <Content Include="file\chu.mp4" />
     <Content Include="Scripts\jquery-3.2.1.js" />
     <Content Include="Scripts\jquery-3.2.1.min.js" />
     <Content Include="Scripts\jquery-3.2.1.slim.js" />
     <Content Include="Scripts\jquery-3.2.1.slim.min.js" />
+    <Content Include="Scripts\jquery.signalR-2.2.2.js" />
+    <Content Include="Scripts\jquery.signalR-2.2.2.min.js" />
     <Content Include="subsite\CampusTalk\pages\Info.aspx" />
     <Content Include="subsite\CampusTalk\pages\Login.aspx" />
     <Content Include="subsite\Graduate\Details.aspx" />
@@ -164,8 +179,6 @@
     <Content Include="others\tempimage\9.jpg" />
     <Content Include="ajax\HandMsg.ashx" />
     <None Include="Properties\PublishProfiles\WebSite-Config.pubxml" />
-    <Content Include="Scripts\jquery.signalR-2.2.2.js" />
-    <Content Include="Scripts\jquery.signalR-2.2.2.min.js" />
     <Content Include="subsite\Graduate\Main.aspx" />
     <Content Include="subsite\Graduate\ManagePage\ManagePage.aspx" />
     <Content Include="subsite\Graduate\SchoolList.aspx" />
@@ -197,20 +210,22 @@
     <Content Include="WebSite\packages\Microsoft.Owin.Host.SystemWeb.2.1.0\lib\net45\Microsoft.Owin.Host.SystemWeb.xml" />
     <Content Include="WebSite\packages\Microsoft.Owin.Security.2.1.0\lib\net45\Microsoft.Owin.Security.dll" />
     <Content Include="WebSite\packages\Microsoft.Owin.Security.2.1.0\lib\net45\Microsoft.Owin.Security.XML" />
-    <Content Include="WebSite\packages\Newtonsoft.Json.6.0.4\lib\net20\Newtonsoft.Json.dll" />
-    <Content Include="WebSite\packages\Newtonsoft.Json.6.0.4\lib\net20\Newtonsoft.Json.xml" />
-    <Content Include="WebSite\packages\Newtonsoft.Json.6.0.4\lib\net35\Newtonsoft.Json.dll" />
-    <Content Include="WebSite\packages\Newtonsoft.Json.6.0.4\lib\net35\Newtonsoft.Json.xml" />
-    <Content Include="WebSite\packages\Newtonsoft.Json.6.0.4\lib\net40\Newtonsoft.Json.dll" />
-    <Content Include="WebSite\packages\Newtonsoft.Json.6.0.4\lib\net40\Newtonsoft.Json.xml" />
-    <Content Include="WebSite\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll" />
-    <Content Include="WebSite\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.xml" />
-    <Content Include="WebSite\packages\Newtonsoft.Json.6.0.4\lib\netcore45\Newtonsoft.Json.dll" />
-    <Content Include="WebSite\packages\Newtonsoft.Json.6.0.4\lib\netcore45\Newtonsoft.Json.xml" />
-    <Content Include="WebSite\packages\Newtonsoft.Json.6.0.4\lib\portable-net40+sl5+wp80+win8+wpa81\Newtonsoft.Json.dll" />
-    <Content Include="WebSite\packages\Newtonsoft.Json.6.0.4\lib\portable-net40+sl5+wp80+win8+wpa81\Newtonsoft.Json.xml" />
-    <Content Include="WebSite\packages\Newtonsoft.Json.6.0.4\lib\portable-net45+wp80+win8+wpa81\Newtonsoft.Json.dll" />
-    <Content Include="WebSite\packages\Newtonsoft.Json.6.0.4\lib\portable-net45+wp80+win8+wpa81\Newtonsoft.Json.xml" />
+    <Content Include="WebSite\packages\Newtonsoft.Json.10.0.3\lib\net20\Newtonsoft.Json.dll" />
+    <Content Include="WebSite\packages\Newtonsoft.Json.10.0.3\lib\net20\Newtonsoft.Json.xml" />
+    <Content Include="WebSite\packages\Newtonsoft.Json.10.0.3\lib\net35\Newtonsoft.Json.dll" />
+    <Content Include="WebSite\packages\Newtonsoft.Json.10.0.3\lib\net35\Newtonsoft.Json.xml" />
+    <Content Include="WebSite\packages\Newtonsoft.Json.10.0.3\lib\net40\Newtonsoft.Json.dll" />
+    <Content Include="WebSite\packages\Newtonsoft.Json.10.0.3\lib\net40\Newtonsoft.Json.xml" />
+    <Content Include="WebSite\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll" />
+    <Content Include="WebSite\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.xml" />
+    <Content Include="WebSite\packages\Newtonsoft.Json.10.0.3\lib\netstandard1.0\Newtonsoft.Json.dll" />
+    <Content Include="WebSite\packages\Newtonsoft.Json.10.0.3\lib\netstandard1.0\Newtonsoft.Json.xml" />
+    <Content Include="WebSite\packages\Newtonsoft.Json.10.0.3\lib\netstandard1.3\Newtonsoft.Json.dll" />
+    <Content Include="WebSite\packages\Newtonsoft.Json.10.0.3\lib\netstandard1.3\Newtonsoft.Json.xml" />
+    <Content Include="WebSite\packages\Newtonsoft.Json.10.0.3\lib\portable-net40+sl5+win8+wp8+wpa81\Newtonsoft.Json.dll" />
+    <Content Include="WebSite\packages\Newtonsoft.Json.10.0.3\lib\portable-net40+sl5+win8+wp8+wpa81\Newtonsoft.Json.xml" />
+    <Content Include="WebSite\packages\Newtonsoft.Json.10.0.3\lib\portable-net45+win8+wp8+wpa81\Newtonsoft.Json.dll" />
+    <Content Include="WebSite\packages\Newtonsoft.Json.10.0.3\lib\portable-net45+win8+wp8+wpa81\Newtonsoft.Json.xml" />
     <Content Include="WebSite\packages\Owin.1.0\lib\net40\Owin.dll" />
     <Content Include="WebSite\WebSite.sln" />
     <Content Include="Welcome.aspx" />
@@ -231,9 +246,10 @@
     <Content Include="WebSite\packages\Microsoft.Owin.2.1.0\Microsoft.Owin.2.1.0.nupkg" />
     <Content Include="WebSite\packages\Microsoft.Owin.Host.SystemWeb.2.1.0\Microsoft.Owin.Host.SystemWeb.2.1.0.nupkg" />
     <Content Include="WebSite\packages\Microsoft.Owin.Security.2.1.0\Microsoft.Owin.Security.2.1.0.nupkg" />
-    <Content Include="WebSite\packages\Newtonsoft.Json.6.0.4\Newtonsoft.Json.6.0.4.nupkg" />
-    <Content Include="WebSite\packages\Newtonsoft.Json.6.0.4\tools\install.ps1" />
     <Content Include="WebSite\packages\Owin.1.0\Owin.1.0.nupkg" />
+    <Content Include="WebSite\packages\Newtonsoft.Json.10.0.3\LICENSE.md" />
+    <Content Include="WebSite\packages\Newtonsoft.Json.10.0.3\Newtonsoft.Json.10.0.3.nupkg" />
+    <Content Include="WebSite\packages\Newtonsoft.Json.10.0.3\tools\install.ps1" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Old_App_Code\App\campustalk\AreaPool.cs" />
@@ -343,7 +359,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="file\" />
     <Folder Include="obj\Debug\TempPE\" />
     <Folder Include="subsite\CampusTalk\images\headpic\" />
     <Folder Include="subsite\CampusTalk\images\res\" />

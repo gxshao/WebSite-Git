@@ -183,7 +183,7 @@ namespace WebSite.App_Code.Utils
         /// <returns></returns>
         public int AddSign(string uid)
         {
-            string sql = "insert into " + GlobalVar.Sign.TABLE_SIGN + " (" + GlobalVar.Sign.UID + "," + GlobalVar.Sign.TIME + ") values('" + uid + "','" + DateTime.Now.Day + "')";
+            string sql = "insert into " + GlobalVar.Sign.TABLE_SIGN + " (" + GlobalVar.Sign.UID + "," + GlobalVar.Sign.TIME + ") values('" + uid + "','" + DateTime.Now.ToString("yyyy-MM-dd") + "')";
             try
             {
                 return ctSqlHelper.getInstance().executeSql(sql);
@@ -378,7 +378,7 @@ namespace WebSite.App_Code.Utils
                 DateTime startTime = DateTime.Parse(loc.Datetime).AddSeconds(-30);
                 DateTime endTime = startTime.AddSeconds(60);
                 string sqlUser = "select a.* from " + GlobalVar.Location.TABLE_LOCATION + " a left JOIN " + GlobalVar.User.TABLE_USER + " b on a." + GlobalVar.Location.UID + "=b." + GlobalVar.Location.UID + " where SUBSTRING(a." + GlobalVar.Location.UID + ",LEN(a." + GlobalVar.Location.UID + "),1)='" + sex + "' and b." + GlobalVar.User.SCHOOLCODE + "='" + schoolcode + "' and [" +
-                    GlobalVar.Location.TIME + "] BETWEEN '" + startTime.ToString("yyyy-MM-dd hh:mm:ss") + "' and '" + endTime.ToString("yyyy-MM-dd hh:mm:ss") + "'";
+                    GlobalVar.Location.TIME + "] BETWEEN '" + startTime.ToString("yyyy-MM-dd HH:mm:ss") + "' and '" + endTime.ToString("yyyy-MM-dd HH:mm:ss") + "'";
                 DataTable dt_list = ctSqlHelper.getInstance().Query(sqlUser);
                 if (dt_list.Rows.Count > 0)
                 {

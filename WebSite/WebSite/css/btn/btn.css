@@ -2,10 +2,12 @@
     color: white;
     width: auto;
     height: 50px;
-    float:right;
+    max-width: 200px;
+    min-width: 50px;
+    float: right;
     text-align: center;
     font-family: 迷你简少儿;
-    font-size: 28px;
+    font-size-adjust: 0.58;
     border: 1px solid white;
     border-radius: 15px 15px;
     text-decoration: none;
@@ -57,7 +59,7 @@
 }
 
 .btn-submit {
-    font-family:'Microsoft YaHei UI';
+    font-family: 'Microsoft YaHei UI';
     font-size: 19px;
     width: 80px;
     color: white;
@@ -65,12 +67,12 @@
     background-color: deepskyblue;
     filter: alpha(30);
     cursor: pointer;
-    border-radius:5px;
-    height:34px;
-    float:right;
-    line-height:32px;
-    text-decoration:none;
-    margin-right:30px;
+    border-radius: 5px;
+    display:inline-block;
+    height: 34px;
+    line-height: 32px;
+    text-decoration: none;
+    margin-right: 30px;
 }
 
     .btn-submit:hover {
@@ -79,9 +81,11 @@
         background-color: deepskyblue;
         box-shadow: 0px 0px 5px deepskyblue;
     }
-    .btn-submit:focus{
-        outline: none; 
+
+    .btn-submit:focus {
+        outline: none;
     }
+
     .btn-submit:active {
         transform: scale(0.95);
     }

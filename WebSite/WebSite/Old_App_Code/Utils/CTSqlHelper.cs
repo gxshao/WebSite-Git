@@ -8,7 +8,7 @@ using System.Web;
 /// <summary>
 /// SqlHelper 的摘要说明
 /// </summary>
-public class ctSqlHelper
+public class ctSqlHelper:IDisposable
 {
     SqlConnection sc;
     string conn = System.Web.Configuration.WebConfigurationManager.ConnectionStrings["ConnString"].ToString();
@@ -51,7 +51,6 @@ public class ctSqlHelper
                         tran.Rollback();
 
                     sc.Close();
-                    throw e;
                 }
                 sc.Close();
 
@@ -104,6 +103,11 @@ public class ctSqlHelper
             }
         }
         return dt;
+    }
+
+    public void Dispose()
+    {
+       
     }
     #endregion
 }

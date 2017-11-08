@@ -163,7 +163,7 @@ public partial class subsite_Graduate_ManagePage_ManagePage : System.Web.UI.Page
         }
         catch (Exception e)
         {
-            throw e;
+           
         }
     }
     #endregion
@@ -176,7 +176,7 @@ public partial class subsite_Graduate_ManagePage_ManagePage : System.Web.UI.Page
         }
         catch (Exception e)
         {
-            throw e;
+           
         }
     }
 }
