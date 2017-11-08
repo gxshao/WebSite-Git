@@ -71,6 +71,7 @@ public class ctSearch : IHttpHandler
                     {
                         Degree myloc = new Degree(Double.Parse(loc.Latitude), Double.Parse(loc.Longitude));
                         List<CTPerson> res_person = new List<CTPerson>();
+                        loc.Uid = uid;
                         List<CTLocation> locdata = SQLOP.getInstance().getLcationListByLocate(loc);
                         List<CTLocation> newData = new List<CTLocation>();
                         //过滤经纬度坐标
