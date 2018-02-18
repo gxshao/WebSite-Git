@@ -42,6 +42,7 @@ namespace WebSite.App_Code.Utils
         public int AddUser(CTPerson user)
         {
             string sql = "insert into " + GlobalVar.User.TABLE_USER + " (" + GlobalVar.User.UID + "," + GlobalVar.User.PASSWORD + "," + GlobalVar.User.SEX + "," + GlobalVar.User.EMAIL + "," + GlobalVar.User.SCHOOLCODE + ") values('" + user.Uid + "','" + user.Password + "','" + user.Sex + "','" + user.Email + "','" + user.School.SCode + "')";
+            string sqlGoods = "insert into " + GlobalVar.Goods.TABLE_GOODS + " (" + GlobalVar.Goods.UID + ","+GlobalVar.Goods.MONEY+","+GlobalVar.Goods.FLOWER+") values ('',0,0)";
             try
             {
                 return ctSqlHelper.getInstance().executeSql(sql);
@@ -181,18 +182,44 @@ namespace WebSite.App_Code.Utils
         /// </summary>
         /// <param name="uid"></param>
         /// <returns></returns>
-        public int AddSign(string uid)
+        public bool AddSign(string uid)
         {
             string sql = "insert into " + GlobalVar.Sign.TABLE_SIGN + " (" + GlobalVar.Sign.UID + "," + GlobalVar.Sign.TIME + ") values('" + uid + "','" + DateTime.Now.ToString("yyyy-MM-dd") + "')";
+            string goods = "update "+GlobalVar.Goods.TABLE_GOODS+" set "+GlobalVar.Goods.MONEY+"="+GlobalVar.Goods.MONEY+"+10 where "+GlobalVar.Goods.UID+"='"+uid+"'";
             try
             {
-                return ctSqlHelper.getInstance().executeSql(sql);
+                return ctSqlHelper.getInstance().executeSql(sql)==1&&ctSqlHelper.getInstance().executeSql(goods)==1;
             }
             catch (Exception e)
             {
                 Console.WriteLine(e.Message);
             }
-            return 0;
+            return false;
+        }
+        /// <summary>
+        /// 检查签到状态
+        /// </summary>
+        /// <param name="uid"></param>
+        /// <returns></returns>
+        public bool CheckSign(string uid) {
+
+            string sql = "select "+GlobalVar.Sign.TIME+" from "+GlobalVar.Sign.TABLE_SIGN+" where "+GlobalVar.Sign.UID+"='"+uid+"' order by "+GlobalVar.Sign.TIME+" desc";
+            try {
+                DataTable dt=ctSqlHelper.getInstance().Query(sql);
+                if (dt.Rows.Count <= 0)
+                    return false;
+                else if (DateTime.Parse(dt.Rows[0][GlobalVar.Sign.TIME].ToString()).ToString("yyyy-MM-dd").Equals(DateTime.Now.ToString("yyyy-MM-dd")))
+                {
+                    return true;
+                }
+                else
+                    return false;
+            }
+            catch(Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+            return false;
         }
         /// <summary>
         /// 更新用个人资料

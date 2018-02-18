@@ -42,8 +42,10 @@ public class ctUserPool
         mChattingRoom = new Dictionary<string, List<CTUser>>();
         TempPool mA = new TempPool();
         TempPool mB = new TempPool();
-        mPool.Add(GlobalVar.SEX_MALE, mA);
-        mPool.Add(GlobalVar.SEX_FEMALE, mB);
+        if (!mPool.ContainsKey(GlobalVar.SEX_MALE))
+            mPool.Add(GlobalVar.SEX_MALE, mA);
+        if (!mPool.ContainsKey(GlobalVar.SEX_FEMALE))
+            mPool.Add(GlobalVar.SEX_FEMALE, mB);
         mMatchThread = new Thread(Matching);
     }
     public void StartMatch()
@@ -91,16 +93,16 @@ public class ctUserPool
                 }
                 catch
                 {
-                    
+
                     mMatchThread = new Thread(Matching);
                     mMatchThread.Start();
                 }
             }
             if (mPool[GlobalVar.SEX_MALE].isPendingEmpty() || mPool[GlobalVar.SEX_FEMALE].isPendingEmpty())
             {
-                Thread.Sleep(3000);
+                Thread.Sleep(2000);
             }
-            Thread.Sleep(2000);
+            Thread.Sleep(500);
         }
 
 
@@ -126,7 +128,7 @@ public class ctUserPool
             CTUser user = mPool[ctUtils.getSexbyUid(uid)].MoveUser(tmp, to, uid);
 
             //解决聊天室 单向关闭
-            if (user != null&&to== GlobalVar.STATE_NONE)
+            if (user != null && to == GlobalVar.STATE_NONE)
             {
                 lock (LocObj)
                 {
@@ -208,7 +210,7 @@ class TempPool
         {
             if (mList != null)
             {
-                if(!mList.ContainsKey(user.Uid))
+                if (!mList.ContainsKey(user.Uid))
                     mList.Add(user.Uid, user);
                 else
                 {
@@ -324,9 +326,10 @@ class TempPool
         return mPending.Count == 0;
     }
     //测试功能
-    public ArrayList getAlluserNickname() {
+    public ArrayList getAlluserNickname()
+    {
         ArrayList list = new ArrayList();
-        foreach (KeyValuePair<string,CTUser> user in mList)
+        foreach (KeyValuePair<string, CTUser> user in mList)
         {
             list.Add(user.Value.Uid);
         }

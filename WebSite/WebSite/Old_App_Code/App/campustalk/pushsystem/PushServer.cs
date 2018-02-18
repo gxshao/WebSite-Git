@@ -15,5 +15,6 @@ public class PushServer
     public void Configuration(IAppBuilder app)
     {
         app.MapSignalR<CTConnection>("/MyConnection");
+        
     }
 }

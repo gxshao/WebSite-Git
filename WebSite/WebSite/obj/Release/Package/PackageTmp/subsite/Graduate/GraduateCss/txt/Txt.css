@@ -1,0 +1,61 @@
+﻿body {
+}
+
+.TxtBlock {
+    color: white;
+    background-color: limegreen;
+    border-radius: 3px 3px;
+    width: 60px;
+    height: 30px;
+    margin-left: 10px;
+    text-align: center;
+    line-height: 25px;
+    float: left;
+    padding-top: 5px;
+}
+
+.TxtTips {
+    font-family: 'Adobe Heiti Std';
+    color: white;
+    font-size: 25px;
+    margin-left: 10px;
+}
+
+.SelectorTxt {
+    color: white;
+    background-color: #303030;
+    font-size: 23px;
+    font-family: 'Adobe Heiti Std';
+    outline: none;
+    border: none;
+    height: 40px;
+    margin: 0;
+    padding: 0 1.5%;
+    border-radius:5px 5px;
+}
+
+    .SelectorTxt option {
+        color: white;
+        font-family: 'Adobe Heiti Std';
+        background-color: #303030;
+        text-align: center;
+    }
+
+    .SelectorTxt:hover {
+        color: white;
+        background-color: #4F94CD;
+    }
+.inputContent{
+    font-family:'Microsoft JhengHei UI';
+    font-size:25px;
+    border:none;
+    height:35px;
+    color:#999;
+    border-radius:5px 6px;
+    text-align:center;
+    background-color:aliceblue;
+    margin-left:10px;
+}
+.inputContent:focus{
+    outline:none;
+}
