@@ -17,6 +17,7 @@
     <title>Courage and intelligence</title>
     <style>
         .body {
+            width:100%;
         }
     </style>
     <script type="text/javascript">
@@ -125,8 +126,8 @@
 </head>
 <body class="body">
     <div style="z-index: -50; position: absolute; width: 100%; height: 90%;"></div>
-    <div style="z-index: -100; position: absolute; width: 100%; height: 90%">
-        <video autoplay="" loop="" id="video" style="width: auto; height: auto; top: -100px; left: 0px; right: 0px">
+    <div style="z-index: -100; position: absolute; width: 100%; height: auto">
+        <video autoplay="" loop="" id="video" style="width: 100%; height: auto; top: -100px; left: 0px; right: 0px">
             <source src="file/chu.mp4" type="video/mp4">
         </video>
     </div>

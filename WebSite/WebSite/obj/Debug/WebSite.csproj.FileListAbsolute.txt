@@ -5,3 +5,17 @@ E:\WorkingSpcae VS\WorkingSpace Web\WebSite\WebSite Git\WebSite\WebSite\bin\Newt
 E:\WorkingSpcae VS\WorkingSpace Web\WebSite\WebSite Git\WebSite\WebSite\bin\Newtonsoft.Json.xml
 E:\WorkingSpcae VS\WorkingSpace Web\WebSite\WebSite Git\WebSite\WebSite\obj\Debug\WebSite.dll
 E:\WorkingSpcae VS\WorkingSpace Web\WebSite\WebSite Git\WebSite\WebSite\obj\Debug\WebSite.pdb
+E:\WorkingSpaces\WorkingSpcae VS\WorkingSpace Web\WebSite\WebSite Git\WebSite\WebSite\bin\WebSite.dll.config
+E:\WorkingSpaces\WorkingSpcae VS\WorkingSpace Web\WebSite\WebSite Git\WebSite\WebSite\bin\WebSite.dll
+E:\WorkingSpaces\WorkingSpcae VS\WorkingSpace Web\WebSite\WebSite Git\WebSite\WebSite\bin\WebSite.pdb
+E:\WorkingSpaces\WorkingSpcae VS\WorkingSpace Web\WebSite\WebSite Git\WebSite\WebSite\bin\Newtonsoft.Json.dll
+E:\WorkingSpaces\WorkingSpcae VS\WorkingSpace Web\WebSite\WebSite Git\WebSite\WebSite\bin\Newtonsoft.Json.xml
+E:\WorkingSpaces\WorkingSpcae VS\WorkingSpace Web\WebSite\WebSite Git\WebSite\WebSite\obj\Debug\WebSite.csprojResolveAssemblyReference.cache
+E:\WorkingSpaces\WorkingSpcae VS\WorkingSpace Web\WebSite\WebSite Git\WebSite\WebSite\obj\Debug\WebSite.csproj.CoreCompileInputs.cache
+E:\WorkingSpaces\WorkingSpcae VS\WorkingSpace Web\WebSite\WebSite Git\WebSite\WebSite\obj\Debug\WebSite.dll
+E:\WorkingSpaces\WorkingSpcae VS\WorkingSpace Web\WebSite\WebSite Git\WebSite\WebSite\obj\Debug\WebSite.pdb
+E:\WorkingSpaces\WorkingSpcae VS\WorkingSpace Web\WebSite\WebSite Git\WebSite\WebSite\bin\Microsoft.AspNet.SignalR.Core.xml
+E:\WorkingSpaces\WorkingSpcae VS\WorkingSpace Web\WebSite\WebSite Git\WebSite\WebSite\bin\Microsoft.AspNet.SignalR.SystemWeb.xml
+E:\WorkingSpaces\WorkingSpcae VS\WorkingSpace Web\WebSite\WebSite Git\WebSite\WebSite\bin\Microsoft.Owin.xml
+E:\WorkingSpaces\WorkingSpcae VS\WorkingSpace Web\WebSite\WebSite Git\WebSite\WebSite\bin\Microsoft.Owin.Host.SystemWeb.xml
+E:\WorkingSpaces\WorkingSpcae VS\WorkingSpace Web\WebSite\WebSite Git\WebSite\WebSite\bin\Microsoft.Owin.Security.xml

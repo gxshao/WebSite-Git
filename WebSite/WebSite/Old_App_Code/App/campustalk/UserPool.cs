@@ -102,7 +102,7 @@ public class ctUserPool
             {
                 Thread.Sleep(2000);
             }
-            Thread.Sleep(500);
+            Thread.Sleep(1000);
         }
 
 

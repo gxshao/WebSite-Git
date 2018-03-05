@@ -95,11 +95,11 @@ public class ctCommon : IHttpHandler
                     Content.Response.Write(JsonConvert.SerializeObject(res_sign));
                     break;
                 }
-                res_sign.Body = SQLOP.getInstance().AddSign(uid) > 0;
+                res_sign.Body = SQLOP.getInstance().AddSign(uid);
                 Content.Response.Write(JsonConvert.SerializeObject(res_sign));
                 break;
           case "CheckSign":
-                //业务加金币
+                //检测是否已签到
                 CTData<bool> res_checksign = new CTData<bool>();
                 res_checksign.Body = GlobalVar.FAIL;
                 res_checksign.DataType = CTData<bool>.DATATYPE_REPLY;
@@ -108,7 +108,7 @@ public class ctCommon : IHttpHandler
                     Content.Response.Write(JsonConvert.SerializeObject(res_checksign));
                     break;
                 }
-                res_checksign.Body = !(SQLOP.getInstance().AddSign(uid) > 0);
+                res_checksign.Body =SQLOP.getInstance().CheckSign(uid);
                 Content.Response.Write(JsonConvert.SerializeObject(res_checksign));
                 break;
             case "getUserProperty":
