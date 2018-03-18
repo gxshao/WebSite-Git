@@ -13,7 +13,7 @@ using WebSite.App_Code.Obj.CampusTalk;
 public class CTConnection : PersistentConnection
 {
     object LocObj = new object();
-    private static Dictionary<string, CTUserBase> mClients = new Dictionary<string, CTUserBase>();
+   
     private static Dictionary<string, string> mFastClients = new Dictionary<string, string>();
     protected override Task OnConnected(IRequest request, string connectionId)
     {
@@ -47,11 +47,11 @@ public class CTConnection : PersistentConnection
                         userbase.Sex = user.Sex;
                         userbase.Uid = user.Uid;
                         userbase.School = user.School;
-                        if (!mClients.ContainsKey(connectionId))
-                            mClients.Add(connectionId, userbase);
+                        if (!GlobalVar.mClients.ContainsKey(connectionId))
+                                    GlobalVar.mClients.Add(connectionId, userbase);
                             else
                             {
-                                mClients[connectionId] = userbase;
+                                    GlobalVar.mClients[connectionId] = userbase;
                             }
                         if (!mFastClients.ContainsKey(user.Uid))
                             mFastClients.Add(user.Uid, connectionId);
@@ -102,13 +102,13 @@ public class CTConnection : PersistentConnection
         lock (LocObj)
         {
             //移除该用户
-            if (mClients.ContainsKey(connectionId))
+            if (GlobalVar.mClients.ContainsKey(connectionId))
             {
-                CTUserBase userbase = mClients[connectionId];
+                CTUserBase userbase = GlobalVar.mClients[connectionId];
                 if (mFastClients.ContainsKey(userbase.Uid))
                     mFastClients.Remove(userbase.Uid);
                 CTAreaPool.getInstance().removeUser(userbase.Uid, userbase.School.SCode);
-                mClients.Remove(connectionId);
+                GlobalVar.mClients.Remove(connectionId);
             }
 
         }

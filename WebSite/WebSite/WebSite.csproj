@@ -125,20 +125,31 @@
     <Content Include="bin\Microsoft.Owin.xml" />
     <Content Include="bin\Owin.dll" />
     <Content Include="bin\Tools.dll" />
+    <Content Include="css\bootstrap.css" />
     <Content Include="css\btn\btn.css" />
     <Content Include="css\div\div_panel.css" />
     <Content Include="css\div\dragdiv.css" />
     <Content Include="css\div\LoadPage.css" />
     <None Include="Scripts\jquery-3.2.1.intellisense.js" />
+    <Content Include="css\style.css" />
+    <Content Include="css\txt\component.css" />
+    <Content Include="css\txt\demo.css" />
+    <Content Include="css\txt\font-awesome.min.css" />
+    <Content Include="css\txt\normalize.css" />
     <Content Include="file\chu.mp4" />
+    <Content Include="images\background\IMG_9479.JPG" />
+    <Content Include="images\background\timg.jpg" />
     <Content Include="Scripts\jquery-3.2.1.js" />
     <Content Include="Scripts\jquery-3.2.1.min.js" />
     <Content Include="Scripts\jquery-3.2.1.slim.js" />
     <Content Include="Scripts\jquery-3.2.1.slim.min.js" />
     <Content Include="Scripts\jquery.signalR-2.2.2.js" />
     <Content Include="Scripts\jquery.signalR-2.2.2.min.js" />
+    <Content Include="subsite\CampusTalk\js\classie.js" />
+    <Content Include="subsite\CampusTalk\js\ios-parallax.js" />
     <Content Include="subsite\CampusTalk\pages\Info.aspx" />
     <Content Include="subsite\CampusTalk\pages\Login.aspx" />
+    <Content Include="subsite\CampusTalk\pages\PushMessage.aspx" />
     <Content Include="subsite\Graduate\Details.aspx" />
     <Content Include="subsite\Graduate\GraduateCss\btn\btn.css" />
     <Content Include="subsite\Graduate\GraduateCss\div\divPanel.css" />
@@ -258,6 +269,7 @@
     <Compile Include="Old_App_Code\App\campustalk\pushsystem\PushServer.cs" />
     <Compile Include="Old_App_Code\App\campustalk\UserPool.cs" />
     <Compile Include="Old_App_Code\Global\GlobalVar.cs" />
+    <Compile Include="Old_App_Code\Obj\CampusTalk\CTPushMessage.cs" />
     <Compile Include="Old_App_Code\Obj\CampusTalk\CTSchool.cs" />
     <Compile Include="Old_App_Code\Obj\CampusTalk\CTUser.cs" />
     <Compile Include="Old_App_Code\Obj\Graduate\AllScores.cs" />
@@ -304,6 +316,13 @@
     </Compile>
     <Compile Include="subsite\CampusTalk\pages\Login.aspx.designer.cs">
       <DependentUpon>Login.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="subsite\CampusTalk\pages\PushMessage.aspx.cs">
+      <DependentUpon>PushMessage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="subsite\CampusTalk\pages\PushMessage.aspx.designer.cs">
+      <DependentUpon>PushMessage.aspx</DependentUpon>
     </Compile>
     <Compile Include="subsite\Graduate\Details.aspx.cs">
       <DependentUpon>Details.aspx</DependentUpon>
@@ -363,7 +382,6 @@
     <Folder Include="subsite\CampusTalk\images\headpic\" />
     <Folder Include="subsite\CampusTalk\images\res\" />
     <Folder Include="subsite\CampusTalk\images\stucard\" />
-    <Folder Include="subsite\CampusTalk\js\" />
     <Folder Include="WebSite\WebSite\" />
   </ItemGroup>
   <ItemGroup>

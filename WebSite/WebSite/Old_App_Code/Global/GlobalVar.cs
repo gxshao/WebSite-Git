@@ -20,6 +20,7 @@ public class GlobalVar
     public const string USER_STATE_UNATH = "1";//未认证
     public const string USER_STATE_WAITING = "2";//待认证
     public const string USER_STATE_STOPPED = "3";//已停用
+    public static Dictionary<string, CTUserBase> mClients = new Dictionary<string, CTUserBase>();
     public GlobalVar()
     {
         //
